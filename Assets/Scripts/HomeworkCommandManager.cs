@@ -135,7 +135,7 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
             GetInput();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) SetInputEnabled(!isInputEnabled);
+        // if (Input.GetKeyDown(KeyCode.Space)) SetInputEnabled(!isInputEnabled);
     }
 
     #endregion
