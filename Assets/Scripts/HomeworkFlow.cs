@@ -108,7 +108,7 @@ namespace DefaultNamespace
 
         private void ArticleDone()
         {
-            AddScore(20);
+            AddScore(8);
             SwitchWorkType(WorkType.Command);
         }
 
