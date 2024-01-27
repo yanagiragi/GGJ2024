@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CommandManager : MonoBehaviour, ILogger
@@ -93,6 +94,7 @@ public class CommandManager : MonoBehaviour, ILogger
             {
                 commands.Dequeue();
                 this.Log(ToString(commands));
+                if (commands.Count == 0) onWorkDone?.Invoke();
             }
     }
 
@@ -125,4 +127,15 @@ public class CommandManager : MonoBehaviour, ILogger
 
         return output;
     }
+
+    #region workdown
+
+    private UnityAction onWorkDone;
+
+    public void SetOnWorkDone(UnityAction action)
+    {
+        onWorkDone += action;
+    }
+
+    #endregion
 }
