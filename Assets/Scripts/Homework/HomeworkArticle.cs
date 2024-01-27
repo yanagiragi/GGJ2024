@@ -46,7 +46,7 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if (!enableInput) return;
+            if (!enableInput || GameManager.Instance.PlayerManager.IsAnyPlayerSlept()) return;
 
             var c = nowArticle[wordColIndex][wordRowIndex].ToString();
             var getkey = false;
