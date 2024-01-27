@@ -6,13 +6,17 @@ using UnityEngine.UI;
 
 public class CommandManager : MonoBehaviour, ILogger
 {
+    public string Prefix => "<CommandManager> ";
     [SerializeField] private bool isShowImage;
 
     [SerializeField] private bool isShowText;
 
     private readonly Queue<int> commands = new();
 
-    private readonly Dictionary<int, KeyCode> inputDictionary = new()
+    private Image _image;
+    private TMP_Text _text;
+
+    private Dictionary<int, KeyCode> inputDictionary = new()
     {
         { 1, KeyCode.A },
         { 2, KeyCode.S },
@@ -20,11 +24,10 @@ public class CommandManager : MonoBehaviour, ILogger
         { 4, KeyCode.W }
     };
 
-    private Image _image;
-    private TMP_Text _text;
     private bool isInputEnabled = true;
 
 
+    #region mono
     private void Awake()
     {
         _image = GetComponent<Image>();
@@ -35,7 +38,7 @@ public class CommandManager : MonoBehaviour, ILogger
 
     private void Start()
     {
-        for (var i = 0; i < 10; i++) commands.Enqueue(Random.Range(1, 5));
+        AddCommands(10);
         SetInputEnabled(true);
     }
 
@@ -51,7 +54,24 @@ public class CommandManager : MonoBehaviour, ILogger
         if (Input.GetKeyDown(KeyCode.Space)) SetInputEnabled(!isInputEnabled);
     }
 
-    public string Prefix => "<CommandManager> ";
+    #endregion
+
+    #region api
+    public void AddCommands(int count)
+    {
+        for (var i = 0; i < count; i++) commands.Enqueue(Random.Range(1, 5));
+    }
+
+    public void SetInputDictionary(KeyCode a, KeyCode s, KeyCode d, KeyCode w)
+    {
+        inputDictionary = new Dictionary<int, KeyCode>
+        {
+            { 1, a },
+            { 2, s },
+            { 3, d },
+            { 4, w }
+        };
+    }
 
     public void SetInputEnabled(bool enabled)
     {
@@ -59,6 +79,7 @@ public class CommandManager : MonoBehaviour, ILogger
         _text.enabled = enabled && isShowText;
         isInputEnabled = enabled;
     }
+    #endregion
 
     private void UpdateAppear()
     {
@@ -93,22 +114,16 @@ public class CommandManager : MonoBehaviour, ILogger
                 commands.Peek() == pair.Key)
             {
                 commands.Dequeue();
-                this.Log(ToString(commands));
                 if (commands.Count == 0) onWorkDone?.Invoke();
             }
     }
 
+    #region translateType
     private List<string> translate(Queue<int> queue)
     {
         var result = new List<string>();
         foreach (var com in queue)
-            if (com == 1)
-                result.Add("A");
-            else if (com == 2)
-                result.Add("S");
-            else if (com == 3)
-                result.Add("D");
-            else if (com == 4) result.Add("W");
+            result.Add(inputDictionary[com].ToString());
         return result;
     }
 
@@ -127,8 +142,9 @@ public class CommandManager : MonoBehaviour, ILogger
 
         return output;
     }
+    #endregion
 
-    #region workdown
+    #region workdone
 
     private UnityAction onWorkDone;
 
