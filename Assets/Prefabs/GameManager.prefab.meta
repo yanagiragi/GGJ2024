@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Picture/Right.meta
-guid: bd5351ddad475a440b8734938f4e80d8
-folderAsset: yes
-DefaultImporter:
-========
-guid: 4a3931beebf9343f4b75408e8507c3d4
+guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd
 PrefabImporter:
->>>>>>>> upstream/main:Assets/Prefabs/GameManager.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

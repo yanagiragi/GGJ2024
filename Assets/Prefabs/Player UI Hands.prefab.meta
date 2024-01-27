@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Picture/hand.meta
-guid: 9f86bf5636a403e42ba45e960ef46ffc
-folderAsset: yes
-DefaultImporter:
-========
-guid: 1a6aadea8f16fb445b972d024593eb1b
+guid: fe25c314319f12140820611baa5adfab
 PrefabImporter:
->>>>>>>> upstream/main:Assets/Prefabs/Player UI Hands.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
