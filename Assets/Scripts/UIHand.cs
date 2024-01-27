@@ -81,7 +81,16 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
             this.Log("Detect isInputDown but UIHand is not enable for input");
         }
 
-        if (_isSlapping || !_isEnableInput)
+        if (_isSlapping)
+        {
+            // exaggerate appearnace
+            _progressBar.Minus(0.01f);
+            _progressBar.UpdateBar(1);
+
+            return;
+        }
+
+        if (!_isEnableInput)
         {
             return;
         }
