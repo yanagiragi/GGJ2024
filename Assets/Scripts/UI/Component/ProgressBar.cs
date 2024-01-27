@@ -1,8 +1,7 @@
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace UI_Component
+namespace UI.Component
 {
     public class ProgressBar : MonoBehaviour
     {

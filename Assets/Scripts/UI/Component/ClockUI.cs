@@ -17,6 +17,7 @@ namespace UI.Component
 
         private void UpdateProgress()
         {
+            timeProgress = 1 - Timer.Instance.GetTimeRadio();
             _progressBar.SetBar(timeProgress, 0, 1);
         }
     }

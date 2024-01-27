@@ -1,6 +1,6 @@
 using MoreMountains.Tools;
 using Sirenix.OdinInspector;
-using UI_Component;
+using UI.Component;
 using UnityEngine;
 
 namespace UI
