@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: b5e675ef8c3711944b6f8b9313dc0be5
+guid: cbd2ac9432fc4b19809df10d5d7da822
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - homeworkPrefab: {fileID: 1964718014450567911, guid: 089f2d5460658274a9f736cfcb7e65b2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

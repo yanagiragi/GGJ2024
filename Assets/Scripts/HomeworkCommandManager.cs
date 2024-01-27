@@ -62,12 +62,8 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
                 commands.Peek() == pair.Key)
             {
                 commands.Dequeue();
-                if (commands.Count == 0)
-                {
-                    onWorkDone?.Invoke();
-                    AddCommands(4);
-                }
-
+                if (commands.Count == 0) onWorkDone?.Invoke();
+                // AddCommands(4);
                 UpdateArrow();
             }
     }
@@ -111,7 +107,7 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
     {
         var arrowWidth = 100;
         for (var i = 0; i < arrows.Count; i++)
-            arrows[i].transform.position = new Vector3(arrowWidth * i + gap * i, 0, 0) + transform.position;
+            arrows[i].transform.position = transform.position + new Vector3(0, -(arrowWidth * i + gap * i), 0);
     }
 
     private void UpdateArrow()
@@ -149,6 +145,7 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
     public void AddCommands(int count)
     {
         for (var i = 0; i < count; i++) commands.Enqueue(Random.Range(1, 5));
+        UpdateArrow();
     }
 
     public void SetInputDictionary(KeyCode a, KeyCode s, KeyCode d, KeyCode w)

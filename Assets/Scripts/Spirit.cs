@@ -17,7 +17,6 @@ public class Spirit : MonoBehaviour
 
     [Title("移動設定")] 
     public float idleSpeed = 30f;
-    // 設定移動速度
     public float speed = 2f;
 
     // 定義移動方向，1 表示向右，-1 表示向左
