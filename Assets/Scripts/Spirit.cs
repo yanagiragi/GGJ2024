@@ -6,26 +6,53 @@ using Random = UnityEngine.Random;
 
 public class Spirit : MonoBehaviour
 {
-    [SerializeField] private float idleRange = 5f;
-    [SerializeField] private float moveSpeed = 2f;
-    [Title("每次施展睡眠魔法次數")]
-    [SerializeField] private int spellCount = 5;
+    [SerializeField] private Animator _animator;
 
+    private float size;
+    
+    [Title("持續時間")]
+    public float idleDuration = 5f;
+
+    public float castingSpellDuration = 3f;
+    
+    [Title("移動設定")]
+    // 設定移動速度
+    public float speed = 2f;
+
+    // 定義移動方向，1 表示向右，-1 表示向左
+    [SerializeField] private int direction = 1;
+    
+    [SerializeField] private Transform leftBoundary, rightBoundary;
+    private Transform targetBoundary;
+    private IHand targetHand;
+    
+    // 判斷是否已抵達目標位置的距離容忍值
+    public float arrivalThreshold = 10f;
+    
     [Serializable]
     private enum GhostState
     {
         Idle,
-        Moving,
+        MoveToTarget,
         CastingSpell
     }
 
     [SerializeField] private GhostState currentState = GhostState.Idle;
-    [SerializeField] private IHand targetPlayer;
+    [SerializeField] private UIHand _uiHand;
+    private static readonly int CastingSpell = Animator.StringToHash("CastingSpell");
 
 
     private void Start()
     {
+        size = transform.localScale.x;
         StartCoroutine(GhostStateMachine());
+    }
+
+    private void Update()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x =  size * direction;
+        transform.localScale = scale;
     }
 
     private IEnumerator GhostStateMachine()
@@ -35,13 +62,13 @@ public class Spirit : MonoBehaviour
             switch (currentState)
             {
                 case GhostState.Idle:
-                    yield return StartCoroutine(IdleState());
+                    yield return IdleState();
                     break;
-                case GhostState.Moving:
-                    yield return StartCoroutine(MovingState());
+                case GhostState.MoveToTarget:
+                    yield return MovingState();
                     break;
                 case GhostState.CastingSpell:
-                    yield return StartCoroutine(CastingSpellState());
+                    yield return CastingSpellState();
                     break;
             }
         }
@@ -50,44 +77,66 @@ public class Spirit : MonoBehaviour
     private IEnumerator IdleState()
     {
         Debug.Log("Idle State");
-        yield return new WaitForSeconds(5f); // 每隔5秒進入移動狀態
-        currentState = GhostState.Moving;
+        _animator.SetBool(CastingSpell, false);
+        
+        float startTime = Time.time;
+        
+        while (Time.time - startTime < idleDuration)
+        {
+            // TODO Have Some Problem
+            
+            yield return null;
+        }
+        
+        currentState = GhostState.MoveToTarget;
     }
 
     private IEnumerator MovingState()
     {
-        targetPlayer = PlayerManager.Instance.GetRandomPlayer();
-        Debug.Log("Moving State");
+        _animator.SetBool(CastingSpell, false);
+        GetRandomTarget();
+        
+        yield return MoveToTarget(targetBoundary.position);
 
-        Vector3 randomDestination = transform.position + Random.onUnitSphere * idleRange;
-        randomDestination.y = 0f; // 將 y 座標固定為0，保持在地面上
+        yield return new WaitForSeconds(1f);
+        
+        currentState = GhostState.CastingSpell;
+    }
 
-        while (Vector3.Distance(transform.position, randomDestination) > 0.1f)
+    private void GetRandomTarget()
+    {
+        bool isPlayer1 = Convert.ToBoolean(Random.Range(0, 2));
+        targetBoundary = isPlayer1 ? leftBoundary : rightBoundary;
+        targetHand = isPlayer1 ? PlayerManager.Instance.GetPlayer1() : PlayerManager.Instance.GetPlayer2();
+    }
+    
+    IEnumerator MoveToTarget(Vector3 targetPosition)
+    {
+        if (targetPosition.x > transform.position.x)
         {
-            transform.position = Vector3.MoveTowards(transform.position, randomDestination, moveSpeed * Time.deltaTime);
+            direction = 1;
+        }
+        else
+        {
+            direction = -1;
+        }
+        
+        while (Vector3.Distance(transform.position, targetPosition) > arrivalThreshold)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
             yield return null;
         }
 
-        currentState = GhostState.CastingSpell;
     }
 
     private IEnumerator CastingSpellState()
     {
-        Debug.Log("Casting Spell State");
-
-        float magicCount = 0f;
-
-        while (magicCount < spellCount)
-        {
-            // 每秒觸發 targetPlayer.SetSleepAmount(0.1f)
-            targetPlayer.EnableInput();
-
-            magicCount += Time.deltaTime;
-            yield return new WaitForSeconds(5f);
-        }
-
-        // 持續5秒後進入閒置階段
-
+        _animator.SetBool(CastingSpell, true);
+        
+        targetHand.EnableInput();
+        yield return new WaitForSeconds(castingSpellDuration);
+        
         currentState = GhostState.Idle;
     }
 }
