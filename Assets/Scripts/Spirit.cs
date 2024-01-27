@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DefaultNamespace;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -24,8 +25,8 @@ public class Spirit : MonoBehaviour
     
     [SerializeField] private Transform leftBoundary, rightBoundary;
     private Transform targetBoundary;
-    private IHand targetHand;
-    
+    private int targetIndex;
+
     // 判斷是否已抵達目標位置的距離容忍值
     public float arrivalThreshold = 10f;
     
@@ -130,11 +131,8 @@ public class Spirit : MonoBehaviour
 
     private void GetRandomTarget()
     {
-        bool isPlayer1 = PlayerManager.Instance.GetRandomNotSleepPlayer();
-        Debug.Log($"isPlayer1 {isPlayer1}");
-        
-        targetHand = isPlayer1 ? PlayerManager.Instance.GetPlayer1() : PlayerManager.Instance.GetPlayer2();
-        targetBoundary = isPlayer1 ? leftBoundary : rightBoundary;
+        targetIndex = Random.Range(0, 2);
+        targetBoundary = targetIndex == 0 ? leftBoundary : rightBoundary;
     }
     
     IEnumerator MoveToTarget(Vector3 targetPosition)
@@ -160,7 +158,10 @@ public class Spirit : MonoBehaviour
     private IEnumerator CastingSpellState()
     {
         _animator.SetBool(CastingSpell, true);
-        
+
+        GameManager.Instance.PlayerManager.Sleep(targetIndex);
+
+        var targetHand = GameManager.Instance.HandManager.GetHand(targetIndex);
         targetHand.EnableInput();
         yield return new WaitForSeconds(castingSpellDuration);
         
