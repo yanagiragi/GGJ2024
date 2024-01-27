@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 6728784342331282575}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4444441470734331560
 MonoBehaviour:
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: {fileID: 5648375151578319406}
   IsGaming: 0
-  Score: 0
   winNeedScore: 50
 --- !u!1 &9132765465894959660
 GameObject:

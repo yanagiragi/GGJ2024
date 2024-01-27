@@ -17,15 +17,18 @@ public class GameManager : MonoBehaviour, ILogger
 
     [Title("遊戲中")]
     public bool IsGaming;
-
-
+    
     [Title("分數")] 
-    public int Score = ScoreManager.Instance.Score;
     public int winNeedScore;
     
     #endregion
   
     #region Game Coroutine
+
+    private void Start()
+    {
+        StartGame();
+    }
 
     [Button("開始遊戲")]
     public void StartGame()
@@ -66,7 +69,7 @@ public class GameManager : MonoBehaviour, ILogger
 
     private void JudgeWinCondition()
     {
-        ScoreManager.Instance.SetIsWin(Score >= winNeedScore);
+        ScoreManager.Instance.SetIsWin(winNeedScore);
     }
     
     private void EnterResultScene()

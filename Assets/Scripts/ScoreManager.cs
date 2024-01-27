@@ -11,9 +11,9 @@ namespace DefaultNamespace
 
         public UnityEvent<int> OnScoreChanged = new UnityEvent<int>();
 
-        public void SetIsWin(bool isWin)
+        public void SetIsWin(int winNeedScore)
         {
-            IsWin = isWin;
+            IsWin = Score >= winNeedScore;
         }
 
         public void InitScore()
