@@ -9,6 +9,7 @@ namespace DefaultNamespace
     {
         private readonly List<List<string>> articles = new();
         private TMP_Text _text;
+        private bool enableInput;
 
         private List<string> nowArticle = new();
 
@@ -23,7 +24,7 @@ namespace DefaultNamespace
             articles.Add(article2);
             articles.Add(article3);
             NewArticle();
-            UpdateText();
+            enableInput = true;
         }
 
         private void Start()
@@ -32,6 +33,8 @@ namespace DefaultNamespace
 
         private void Update()
         {
+            if (!enableInput) return;
+
             var c = nowArticle[wordColIndex][wordRowIndex].ToString();
             var getkey = false;
             if (c == " ")
@@ -49,7 +52,7 @@ namespace DefaultNamespace
                     if (wordColIndex >= nowArticle.Count)
                     {
                         NewArticle();
-                        onDone.Invoke();
+                        onDone?.Invoke();
                     }
                 }
 
@@ -57,11 +60,17 @@ namespace DefaultNamespace
             }
         }
 
+        public void SetEnableInput(bool enable)
+        {
+            enableInput = enable;
+        }
+
         public void NewArticle()
         {
             nowArticle = articles[Random.Range(0, articles.Count)];
             wordRowIndex = 0;
             wordColIndex = 0;
+            UpdateText();
         }
 
         private void UpdateText()
@@ -79,6 +88,11 @@ namespace DefaultNamespace
             // result += "\n";
 
             _text.text = result;
+        }
+
+        public void SetOnWorkDone(UnityAction action)
+        {
+            onDone += action;
         }
 
         #region data
