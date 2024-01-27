@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShowImage: 0
   isShowText: 0
+  ArrowPrefab: {fileID: 8126470141683462439, guid: 5b0d2f600f7e9ed47bc934e42b1f3f8a, type: 3}
+  gap: 20
 --- !u!1 &6773456160412197249
 GameObject:
   m_ObjectHideFlags: 0

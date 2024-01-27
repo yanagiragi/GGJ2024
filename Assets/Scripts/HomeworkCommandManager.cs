@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DefaultNamespace.Homework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,10 +7,11 @@ using UnityEngine.UI;
 
 public class HomeworkCommandManager : MonoBehaviour, ILogger
 {
-    public string Prefix => "<CommandManager> ";
     [SerializeField] private bool isShowImage;
 
     [SerializeField] private bool isShowText;
+    [SerializeField] private GameObject ArrowPrefab;
+    [SerializeField] private float gap = 20;
 
     private readonly Queue<int> commands = new();
 
@@ -25,22 +27,108 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
     };
 
     private bool isInputEnabled = true;
+    public string Prefix => "<CommandManager> ";
+
+    private void UpdateAppear()
+    {
+        // if (commands.Count > 0)
+        //     switch (commands.Peek())
+        //     {
+        //         case 1:
+        //             _image.color = Color.red;
+        //             break;
+        //         case 2:
+        //             _image.color = Color.green;
+        //             break;
+        //         case 3:
+        //             _image.color = Color.blue;
+        //             break;
+        //         case 4:
+        //             _image.color = Color.yellow;
+        //             break;
+        //     }
+        // else
+        //     _image.color = Color.white;
+        //
+        _text.text = ToString(translate(commands));
+    }
+
+    private void GetInput()
+    {
+        if (commands.Count <= 0)
+            return;
+        foreach (var pair in inputDictionary)
+            if (Input.GetKeyDown(pair.Value) &&
+                commands.Peek() == pair.Key)
+            {
+                commands.Dequeue();
+                if (commands.Count == 0)
+                {
+                    onWorkDone?.Invoke();
+                    AddCommands(4);
+                }
+
+                UpdateArrow();
+            }
+    }
 
 
     #region mono
+
     private void Awake()
     {
         _image = GetComponent<Image>();
         _text = GetComponentInChildren<TMP_Text>();
         isShowImage = true;
-        isShowText = true;
+        isShowText = false;
     }
 
     private void Start()
     {
-        AddCommands(10);
+        var count = 4;
+        AddCommands(count);
         SetInputEnabled(true);
+        InitArrow(count);
+        SetArrowPosition();
+        UpdateArrow();
     }
+
+    #region arrow
+
+    private readonly List<Arrow> arrows = new();
+
+    public void InitArrow(int count)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            var arrow = Instantiate(ArrowPrefab, transform);
+
+            arrows.Add(arrow.GetComponent<Arrow>());
+        }
+    }
+
+    private void SetArrowPosition()
+    {
+        var arrowWidth = 100;
+        for (var i = 0; i < arrows.Count; i++)
+            arrows[i].transform.position = new Vector3(arrowWidth * i + gap * i, 0, 0) + transform.position;
+    }
+
+    private void UpdateArrow()
+    {
+        for (var i = 0; i < arrows.Count; i++)
+            if (i >= commands.Count)
+            {
+                arrows[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                arrows[i].gameObject.SetActive(true);
+                arrows[i].SetDirection((Direction)commands.ToArray()[i]);
+            }
+    }
+
+    #endregion
 
     // Update is called once per frame
     private void Update()
@@ -57,6 +145,7 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
     #endregion
 
     #region api
+
     public void AddCommands(int count)
     {
         for (var i = 0; i < count; i++) commands.Enqueue(Random.Range(1, 5));
@@ -79,46 +168,11 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
         _text.enabled = enabled && isShowText;
         isInputEnabled = enabled;
     }
+
     #endregion
 
-    private void UpdateAppear()
-    {
-        if (commands.Count > 0)
-            switch (commands.Peek())
-            {
-                case 1:
-                    _image.color = Color.red;
-                    break;
-                case 2:
-                    _image.color = Color.green;
-                    break;
-                case 3:
-                    _image.color = Color.blue;
-                    break;
-                case 4:
-                    _image.color = Color.yellow;
-                    break;
-            }
-        else
-            _image.color = Color.white;
-
-        _text.text = ToString(translate(commands));
-    }
-
-    private void GetInput()
-    {
-        if (commands.Count <= 0)
-            return;
-        foreach (var pair in inputDictionary)
-            if (Input.GetKeyDown(pair.Value) &&
-                commands.Peek() == pair.Key)
-            {
-                commands.Dequeue();
-                if (commands.Count == 0) onWorkDone?.Invoke();
-            }
-    }
-
     #region translateType
+
     private List<string> translate(Queue<int> queue)
     {
         var result = new List<string>();
@@ -142,6 +196,7 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
 
         return output;
     }
+
     #endregion
 
     #region workdone
