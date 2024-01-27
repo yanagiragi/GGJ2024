@@ -6,7 +6,7 @@ namespace DefaultNamespace
     {
         private void Start()
         {
-            var cm = FindObjectOfType<CommandManager>();
+            var cm = FindObjectOfType<HomeworkCommandManager>();
             cm.SetOnWorkDone(WorkDone);
             cm.SetInputDictionary(KeyCode.J, KeyCode.K, KeyCode.L, KeyCode.I);
         }

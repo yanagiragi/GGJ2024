@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class CommandManager : MonoBehaviour, ILogger
+public class HomeworkCommandManager : MonoBehaviour, ILogger
 {
     public string Prefix => "<CommandManager> ";
     [SerializeField] private bool isShowImage;
