@@ -449,6 +449,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4908982480086915178}
     m_Modifications:
+    - target: {fileID: 5281716446037076967, guid: 14c5f024c16e17c498f551add9afa76e, type: 3}
+      propertyPath: _chargeMoveDirection.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6645461128345749106, guid: 14c5f024c16e17c498f551add9afa76e, type: 3}
       propertyPath: m_Name
       value: Player2 - UIHand

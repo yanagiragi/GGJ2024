@@ -6,12 +6,17 @@ namespace UI.Component
     public class ProgressBar : MonoBehaviour
     {
         [SerializeField] private MMProgressBar _mmProgressBar;
-        
+
         public void SetValue(float newProgress)
         {
             _mmProgressBar.SetBar(newProgress, 0, 1);
         }
-        
+
+        public void UpdateBar(float newProgress)
+        {
+            _mmProgressBar.UpdateBar01(newProgress);
+        }
+
         public void Plus(float progress)
         {
             float newProgress = _mmProgressBar.BarTarget + progress;

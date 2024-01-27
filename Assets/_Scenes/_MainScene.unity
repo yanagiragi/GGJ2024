@@ -131,14 +131,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1795351024}
     m_Modifications:
-    - target: {fileID: 465918269265714994, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -0.7099936
-      objectReference: {fileID: 0}
-    - target: {fileID: 465918269265714994, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.355011
-      objectReference: {fileID: 0}
     - target: {fileID: 721053624955263261, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -250,10 +242,6 @@ PrefabInstance:
     - target: {fileID: 2777282881424825461, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3853935567895120609, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
-      propertyPath: m_ShowMaskGraphic
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3971379888096148881, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
       propertyPath: _progressBar

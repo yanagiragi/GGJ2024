@@ -81,7 +81,16 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
             this.Log("Detect isInputDown but UIHand is not enable for input");
         }
 
-        if (_isSlapping || !_isEnableInput)
+        if (_isSlapping)
+        {
+            // exaggerate appearnace
+            _progressBar.Minus(0.01f);
+            _progressBar.UpdateBar(1);
+
+            return;
+        }
+
+        if (!_isEnableInput)
         {
             return;
         }
@@ -102,11 +111,10 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         {
             if (_chargeTimer > 0)
             {
-                var originalChargeTimer = _chargeTimer;
                 _chargeTimer -= Time.deltaTime * _restoreSpeed;
                 _chargeTimer = Mathf.Clamp(_chargeTimer, 0, _chargeTarget);
-                // this.LogError($"{(originalChargeTimer - _chargeTimer) / _slapChargeCount}");
-                _progressBar.Minus((originalChargeTimer - _chargeTimer) / _slapChargeCount);
+
+                _progressBar.SetValue(_chargeTimer / _slapChargeCount);
             }
             else
             {
