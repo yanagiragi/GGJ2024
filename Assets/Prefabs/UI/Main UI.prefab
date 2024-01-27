@@ -2631,6 +2631,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2697584869197035706}
     m_Modifications:
+    - target: {fileID: 2313761669276254358, guid: fe25c314319f12140820611baa5adfab, type: 3}
+      propertyPath: _progressBar
+      value: 
+      objectReference: {fileID: 5486987028518427480}
+    - target: {fileID: 4811716497163264672, guid: fe25c314319f12140820611baa5adfab, type: 3}
+      propertyPath: _progressBar
+      value: 
+      objectReference: {fileID: 1871031046577645603}
     - target: {fileID: 5752216025493078520, guid: fe25c314319f12140820611baa5adfab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2830,6 +2838,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6977008d27aa742e8bd727d870127c2d, type: 3}
+--- !u!114 &1871031046577645603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2885799594539492201, guid: 6977008d27aa742e8bd727d870127c2d, type: 3}
+  m_PrefabInstance: {fileID: 3601568688152693578}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8f369600044deb9de7b7288c310297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7635702782140241504 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6344481822204534058, guid: 6977008d27aa742e8bd727d870127c2d, type: 3}

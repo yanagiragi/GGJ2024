@@ -16,7 +16,9 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
     #region Variables
     [SerializeField] private Image _image;
-    [SerializeField] private ProgressBar _progressBar;
+    
+    [SerializeField] private Player _player;
+    
     [SerializeField] private Vector3 _chargeMoveDirection = new Vector3(1, 1, 0);
     [SerializeField] private float _chargeMoveStrength = 5;
     [SerializeField] private int _slapChargeCount = 10;
@@ -34,7 +36,6 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     public void Start()
     {
         _originalPosition = transform.position;
-        _progressBar.SetValue(0);
     }
 
     public void Update()
@@ -72,7 +73,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         {
             _chargeTarget += 1;
             _chargeTimer = _chargeTarget;
-            _progressBar.Plus(1.0f / _slapChargeCount);
+            _player.AddSleepAmount(1.0f / _slapChargeCount);
         }
         else
         {
@@ -81,7 +82,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
                 var originalChargeTimer = _chargeTimer;
                 _chargeTimer -= Time.deltaTime * _restoreSpeed;
                 _chargeTimer = Mathf.Clamp(_chargeTimer, 0, _chargeTarget);
-                _progressBar.Minus((originalChargeTimer - _chargeTimer) / _slapChargeCount);
+                _player.SubSleepAmount((originalChargeTimer - _chargeTimer) / _slapChargeCount);
             }
             else
             {

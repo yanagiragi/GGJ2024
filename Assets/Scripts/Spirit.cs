@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spirit : MonoBehaviour
 {
+    [SerializeField] private Player targetPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,4 +19,7 @@ public class Spirit : MonoBehaviour
         transform.position = position;
 
     }
+    
+    
+    
 }

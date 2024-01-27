@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour, ILogger
     public int winNeedScore;
     
     #endregion
+
+    [Title("玩家")]
+    [SerializeField] private Player player1, player2;
+    [SerializeField] private float startSleepAmount = 0.3f;
+    
   
     #region Game Coroutine
 
@@ -52,6 +57,7 @@ public class GameManager : MonoBehaviour, ILogger
         IsGaming = true;
         timer.StartTimer();
         ScoreManager.Instance.InitScore();
+        InitPlayerData();
     }
 
     private IEnumerator GameOver()
@@ -79,6 +85,16 @@ public class GameManager : MonoBehaviour, ILogger
 
     #endregion
 
+    #region Player Setting
+
+    private void InitPlayerData()
+    {
+        player1.SetSleepAmount(startSleepAmount);
+        player2.SetSleepAmount(startSleepAmount);
+    }
+
+    #endregion
+    
 
     #region Test
 
