@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a88730feb024377b6e48f82ec1600e4, type: 3}
+  m_Name: LefPlayerPicture
+  m_EditorClassIdentifier: 
+  normal:
+  - {fileID: 21300000, guid: 7495a87d9fee21148bdc901fb22bf096, type: 3}
+  slap:
+  - {fileID: 21300000, guid: c5b22b9ddcbae404fb20d673fe9e0112, type: 3}
+  - {fileID: 21300000, guid: d5edb278588c5ab40b6b032db603008e, type: 3}
+  - {fileID: 21300000, guid: 363d1e5726b7e2a4eb35bc75bce1cf7b, type: 3}
+  sleep:
+  - {fileID: 21300000, guid: 9c058b520499b7440b5de8af2325d2ca, type: 3}
+  - {fileID: 21300000, guid: 7024f3f60bb50084eaf19004c8115a34, type: 3}
+  chair:
+  - {fileID: 21300000, guid: 5e37c55c54e278b409066f19b12fb3dc, type: 3}
