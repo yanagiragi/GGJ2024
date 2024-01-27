@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using UI.Component;
 using UnityEngine;
 using UnityEngine.UI;
-using UI_Component;
 
 public sealed class UIHand : MonoBehaviour, IHand, ILogger
 {
