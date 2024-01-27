@@ -6,15 +6,21 @@ namespace DefaultNamespace.Homework
 {
     public enum Direction
     {
-        Up,
-        Down,
-        Left,
-        Right
+        Left = 1,
+        Down = 2,
+        Right = 3,
+        Up = 4
     }
 
     public class Arrow : MonoBehaviour
     {
         [SerializeField] private ArrowColor color;
+        private Image image;
+
+        private void Awake()
+        {
+            image = GetComponent<Image>();
+        }
 
         [Button("Set dir")]
         public void SetDirection(Direction direction)
@@ -22,19 +28,19 @@ namespace DefaultNamespace.Homework
             switch (direction)
             {
                 case Direction.Up:
-                    GetComponent<Image>().color = color.upColor;
+                    image.color = color.upColor;
                     transform.rotation = Quaternion.Euler(0, 0, 180);
                     break;
                 case Direction.Down:
-                    GetComponent<Image>().color = color.downColor;
+                    image.color = color.downColor;
                     transform.rotation = Quaternion.Euler(0, 0, 0);
                     break;
                 case Direction.Left:
-                    GetComponent<Image>().color = color.leftColor;
+                    image.color = color.leftColor;
                     transform.rotation = Quaternion.Euler(0, 0, -90);
                     break;
                 case Direction.Right:
-                    GetComponent<Image>().color = color.rightColor;
+                    image.color = color.rightColor;
                     transform.rotation = Quaternion.Euler(0, 0, 90);
                     break;
             }
