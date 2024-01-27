@@ -27,6 +27,7 @@ namespace DefaultNamespace
         {
             article = Instantiate(articlePrefab, transform).GetComponent<HomeworkArticle>();
             article.SetOnWorkDone(ArticleDone);
+            article.SetOnWordDone(WordDone);
             homeworkLeft = Instantiate(homeworkPrefab, transform).GetComponent<HomeworkCommandManager>();
             homeworkLeft.transform.position += new Vector3(-700, 0, 0);
             homeworkRight = Instantiate(homeworkPrefab, transform).GetComponent<HomeworkCommandManager>();
@@ -71,18 +72,18 @@ namespace DefaultNamespace
                     article.gameObject.SetActive(true);
                     homeworkLeft.gameObject.SetActive(false);
                     homeworkRight.gameObject.SetActive(false);
-                    article.SetEnableInput(true);
+                    // article.SetEnableInput(true);
                     article.NewArticle();
-                    homeworkLeft.SetInputEnabled(false);
-                    homeworkRight.SetInputEnabled(false);
+                    // homeworkLeft.SetInputEnabled(false);
+                    // homeworkRight.SetInputEnabled(false);
                     break;
                 case WorkType.Command:
                     article.gameObject.SetActive(false);
                     homeworkLeft.gameObject.SetActive(true);
                     homeworkRight.gameObject.SetActive(true);
-                    article.SetEnableInput(false);
-                    homeworkLeft.SetInputEnabled(true);
-                    homeworkRight.SetInputEnabled(true);
+                    // article.SetEnableInput(false);
+                    // homeworkLeft.SetInputEnabled(true);
+                    // homeworkRight.SetInputEnabled(true);
                     homeworkLeft.AddCommands(4);
                     homeworkRight.AddCommands(4);
                     break;
@@ -94,18 +95,31 @@ namespace DefaultNamespace
         private void LeftDone()
         {
             //homeworkRight.AddCommands(4);
+            AddScore(5);
             leftDone = true;
         }
 
         private void RightDone()
         {
             //homeworkLeft.AddCommands(4);
+            AddScore(5);
             rightDone = true;
         }
 
         private void ArticleDone()
         {
+            AddScore(20);
             SwitchWorkType(WorkType.Command);
+        }
+
+        private void WordDone()
+        {
+            AddScore(1);
+        }
+
+        private void AddScore(int score)
+        {
+            ScoreManager.Instance.AddScore(score);
         }
     }
 }

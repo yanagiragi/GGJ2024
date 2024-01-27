@@ -14,6 +14,7 @@ namespace DefaultNamespace
         private List<string> nowArticle = new();
 
         private UnityAction onDone;
+        private UnityAction onWordDone;
         private int wordColIndex;
         private int wordRowIndex;
 
@@ -54,6 +55,8 @@ namespace DefaultNamespace
                         NewArticle();
                         onDone?.Invoke();
                     }
+
+                    onWordDone?.Invoke();
                 }
 
                 UpdateText();
@@ -88,6 +91,11 @@ namespace DefaultNamespace
             // result += "\n";
 
             _text.text = result;
+        }
+
+        public void SetOnWordDone(UnityAction action)
+        {
+            onWordDone += action;
         }
 
         public void SetOnWorkDone(UnityAction action)
