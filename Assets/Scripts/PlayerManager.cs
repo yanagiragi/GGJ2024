@@ -62,7 +62,7 @@ namespace DefaultNamespace
             playerTwo.init();
         }
 
-        public PlayerSetting GetSleepedPlayer()
+        public PlayerSetting GetSleptPlayer()
         {
             if (playerOne.IsSleep)
             {
@@ -72,6 +72,11 @@ namespace DefaultNamespace
             {
                 return playerTwo;
             }
+        }
+
+        public bool IsAnyPlayerSlept()
+        {
+            return playerTwo.IsSleep || playerOne.IsSleep;
         }
 
         public void Sleep(int index)

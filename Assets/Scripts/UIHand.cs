@@ -140,12 +140,12 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
         this.Log("Slap!");
         _image.sprite = _SlapSprite;
-        GameManager.Instance.PlayerManager.GetSleepedPlayer().Slap();
+        GameManager.Instance.PlayerManager.GetSleptPlayer().Slap();
 
         OnSlapEvent?.Invoke();
         yield return new WaitForSeconds(1);
 
-        GameManager.Instance.PlayerManager.GetSleepedPlayer().Normal();
+        GameManager.Instance.PlayerManager.GetSleptPlayer().Normal();
         _resetAll();
     }
 

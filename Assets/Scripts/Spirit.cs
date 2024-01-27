@@ -114,7 +114,7 @@ public class Spirit : MonoBehaviour
         _animator.SetBool(CastingSpell, false);
 
         // 如果有任何玩家睡著，回到 Idle 狀態
-        if (PlayerManager.Instance.HaveAnySleepPlayer())
+        if (GameManager.Instance.PlayerManager.IsAnyPlayerSlept())
         {
             currentState = GhostState.Idle;
         }
