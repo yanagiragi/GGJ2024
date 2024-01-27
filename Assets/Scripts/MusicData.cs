@@ -26,6 +26,7 @@ public class MusicData : SerializedScriptableObject
         
     public Dictionary<SE, AudioClip> seDict;
 
+    [Title("BGM")]
     public AudioClip titleBGM;
     public AudioClip[] gameBGMs;
 
