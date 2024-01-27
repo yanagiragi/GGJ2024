@@ -151,7 +151,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
     "com.unity.splines": {
       "version": "2.3.0",
       "depth": 1,
@@ -163,8 +162,6 @@
       },
       "url": "https://packages.unity.com"
     },
-=======
->>>>>>> upstream/main
     "com.unity.sysroot": {
       "version": "2.0.7",
       "depth": 1,
