@@ -1,5 +1,61 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4013636733649178987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4547434665311507515}
+  - component: {fileID: 3766350453503543586}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4547434665311507515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4013636733649178987}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9035138386574978639}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3766350453503543586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4013636733649178987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2dafdb660e04cf19fac223b7af40865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerOne:
+    transform: {fileID: 0}
+    playerPicture: {fileID: 11400000, guid: 72ac8d47a60224b4faef1cd3c32a9d64, type: 2}
+    chair: {fileID: 0}
+    image: {fileID: 0}
+    IsSleep: 0
+  playerTwo:
+    transform: {fileID: 0}
+    playerPicture: {fileID: 11400000, guid: 9c69c66d87e4e4240a987208ae6f3369, type: 2}
+    chair: {fileID: 0}
+    image: {fileID: 0}
+    IsSleep: 0
 --- !u!1 &4325568997124692948
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +67,7 @@ GameObject:
   - component: {fileID: 5284749362327142415}
   - component: {fileID: 79912928422594644}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: HandManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb9f3c4f7fc48c082f14c3e20b9642c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
+  playerOneHand: {fileID: 0}
+  playerOneHandInput: 122
+  playerTwoHand: {fileID: 0}
+  playerTwoandInput: 109
 --- !u!1 &5747858231613375203
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,8 +135,9 @@ Transform:
   m_Children:
   - {fileID: 6728784342331282575}
   - {fileID: 5284749362327142415}
+  - {fileID: 4547434665311507515}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4444441470734331560
 MonoBehaviour:
@@ -95,9 +154,8 @@ MonoBehaviour:
   timer: {fileID: 5648375151578319406}
   IsGaming: 0
   winNeedScore: 50
-  player1: {fileID: 0}
-  player2: {fileID: 0}
-  startSleepAmount: 0.3
+  PlayerManager: {fileID: 0}
+  HandManager: {fileID: 0}
 --- !u!1 &9132765465894959660
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7bfb2afb05d42e185a3b328f2153642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 10
+  totalTime: 9999
   currentTime: 0
   timerOver: 0

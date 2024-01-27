@@ -137,12 +137,12 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
         this.Log("Slap!");
         _image.sprite = _SlapSprite;
-        OnSlapEvent?.Invoke();
+        GameManager.Instance.PlayerManager.GetSleepedPlayer().Slap();
 
+        OnSlapEvent?.Invoke();
         yield return new WaitForSeconds(1);
 
-        _image.sprite = _normalSprite;
-        _isSlapping = false;
+        GameManager.Instance.PlayerManager.GetSleepedPlayer().Normal();
         _resetAll();
     }
 
@@ -152,6 +152,8 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         _chargeTarget = 0;
         _chargeTimer = 0;
         _progressBar.SetValue(0);
+        _image.sprite = _normalSprite;
+        _isSlapping = false;
     }
     #endregion
 

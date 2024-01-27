@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 239116057483872576}
   - component: {fileID: 3209303945607738762}
-  - component: {fileID: 6832601378036854626}
   m_Layer: 5
   m_Name: LeftPlayer
   m_TagString: Untagged
@@ -50,19 +49,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637156392737132803}
   m_CullTransparentMesh: 1
---- !u!114 &6832601378036854626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637156392737132803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2dafdb660e04cf19fac223b7af40865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPicture: {fileID: 11400000, guid: 72ac8d47a60224b4faef1cd3c32a9d64, type: 2}
 --- !u!1 &3824783473799390794
 GameObject:
   m_ObjectHideFlags: 0

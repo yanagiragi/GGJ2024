@@ -39,8 +39,8 @@ public class GameManager : MonoBehaviour, ILogger
     [Title("分數")]
     public int winNeedScore;
 
-    public PlayerController PlayerController;
-    public HandController HandController;
+    public PlayerManager PlayerManager;
+    public HandManager HandManager;
     public ScoreManager ScoreManager => ScoreManager.Instance;
 
     #endregion

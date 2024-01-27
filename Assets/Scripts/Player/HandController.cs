@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandController : MonoBehaviour
+public class HandManager : MonoBehaviour
 {
 
     [SerializeField] private UIHand playerOneHand;
@@ -13,7 +13,7 @@ public class HandController : MonoBehaviour
 
     public void Start()
     {
-        GameManager.Instance.HandController = this;
+        GameManager.Instance.HandManager = this;
 
         players.Add(playerTwoHand);
         players.Add(playerOneHand);
