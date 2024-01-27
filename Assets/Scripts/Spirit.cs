@@ -9,6 +9,8 @@ public class Spirit : MonoBehaviour
     [Title("每次施展睡眠魔法次數")]
     [SerializeField] private int spellCount = 5;
 
+    [SerializeField] private Animator _animator;
+
     private float size;
     
     [Title("移動設定")]
@@ -21,17 +23,22 @@ public class Spirit : MonoBehaviour
     public float idleDuration = 5f;
 
     [SerializeField] private Transform leftBoundary, rightBoundary;
+    [SerializeField] private Transform targetBoundary;
+    
+    // 判斷是否已抵達目標位置的距離容忍值
+    public float arrivalThreshold = 10f;
     
     [Serializable]
     private enum GhostState
     {
         Idle,
-        Moving,
+        MoveToTarget,
         CastingSpell
     }
 
     [SerializeField] private GhostState currentState = GhostState.Idle;
     [SerializeField] private Player targetPlayer;
+    private static readonly int CastingSpell = Animator.StringToHash("CastingSpell");
 
 
     private void Start()
@@ -56,7 +63,7 @@ public class Spirit : MonoBehaviour
                 case GhostState.Idle:
                     yield return IdleState();
                     break;
-                case GhostState.Moving:
+                case GhostState.MoveToTarget:
                     yield return MovingState();
                     break;
                 case GhostState.CastingSpell:
@@ -69,63 +76,63 @@ public class Spirit : MonoBehaviour
     private IEnumerator IdleState()
     {
         Debug.Log("Idle State");
+        _animator.SetBool(CastingSpell, false);
         
         float startTime = Time.time;
-        Flip();
         
         while (Time.time - startTime < idleDuration)
         {
-            // 獲取當前UI的位置
-            Vector3 currentPosition = transform.position;
-
-            // 更新UI的X軸位置，根據速度和方向
-            currentPosition.x += speed * direction * Time.deltaTime;
+            // TODO Have Some Problem
             
-            // 確保UI在設定的區間內移動
-            currentPosition.x = Mathf.Clamp(currentPosition.x, leftBoundary.position.x, 
-                rightBoundary.position.x);
-            
-            // 將更新後的位置應用到UI
-            transform.position = currentPosition;
-
-            // 檢查是否到達邊界，如果是則改變移動方向
-            if (currentPosition.x >=  rightBoundary.position.x || currentPosition.x <= leftBoundary.position.x)
-            {
-                Flip();
-            }
             yield return null;
         }
         
-        currentState = GhostState.CastingSpell;
+        currentState = GhostState.MoveToTarget;
     }
 
     private IEnumerator MovingState()
     {
-        // targetPlayer = PlayerManager.Instance.GetRandomPlayer();
-        // Debug.Log("Moving State");
-        //
-        // Vector3 randomDestination = transform.position + Random.onUnitSphere * idleRange;
-        // randomDestination.y = 0f; // 將 y 座標固定為0，保持在地面上
-        //
-        // while (Vector3.Distance(transform.position, randomDestination) > 0.1f)
-        // {
-        //     transform.position = Vector3.MoveTowards(transform.position, randomDestination, moveSpeed * Time.deltaTime);
-        //     yield return null;
-        // }
-        //
-        // currentState = GhostState.CastingSpell;
-        yield return null;
+        _animator.SetBool(CastingSpell, false);
+        GetRandomTarget();
+        
+        yield return MoveToTarget(targetBoundary.position);
+
+        yield return new WaitForSeconds(1f);
+        
+        currentState = GhostState.CastingSpell;
     }
 
-    private void Flip()
+    private void GetRandomTarget()
     {
-        direction *= -1;
+        bool isPlayer1 = Convert.ToBoolean(Random.Range(0, 2));
+        targetBoundary = isPlayer1 ? leftBoundary : rightBoundary;
+    }
+    
+    IEnumerator MoveToTarget(Vector3 targetPosition)
+    {
+        if (targetPosition.x > transform.position.x)
+        {
+            direction = 1;
+        }
+        else
+        {
+            direction = -1;
+        }
+        
+        while (Vector3.Distance(transform.position, targetPosition) > arrivalThreshold)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+            yield return null;
+        }
+
     }
 
     private IEnumerator CastingSpellState()
     {
+        _animator.SetBool(CastingSpell, true);
+        
         targetPlayer = PlayerManager.Instance.GetRandomPlayer();
-        Debug.Log("Casting Spell State");
 
         float magicCount = 0f;
 
