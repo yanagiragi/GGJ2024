@@ -421,6 +421,18 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 79912928422594644, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
+      propertyPath: players.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 79912928422594644, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
+      propertyPath: players.Array.data[0]
+      value: 
+      objectReference: {fileID: 3262727802903134126}
+    - target: {fileID: 79912928422594644, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
+      propertyPath: players.Array.data[1]
+      value: 
+      objectReference: {fileID: 114386687}
     - target: {fileID: 4444441470734331560, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
       propertyPath: player1
       value: 
