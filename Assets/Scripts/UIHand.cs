@@ -102,11 +102,10 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         {
             if (_chargeTimer > 0)
             {
-                var originalChargeTimer = _chargeTimer;
                 _chargeTimer -= Time.deltaTime * _restoreSpeed;
                 _chargeTimer = Mathf.Clamp(_chargeTimer, 0, _chargeTarget);
-                // this.LogError($"{(originalChargeTimer - _chargeTimer) / _slapChargeCount}");
-                _progressBar.Minus((originalChargeTimer - _chargeTimer) / _slapChargeCount);
+
+                _progressBar.SetValue(_chargeTimer / _slapChargeCount);
             }
             else
             {

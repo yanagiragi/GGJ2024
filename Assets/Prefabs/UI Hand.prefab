@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 7555499714521746165}
   _normalSprite: {fileID: 21300000, guid: 71633cbe70ed7e94193c011c732afdfb, type: 3}
-  _SlapSprite: {fileID: 21300000, guid: 6083c8010cc17f74c86ca6ac941511dc, type: 3}
+  _SlapSprite: {fileID: 21300000, guid: e2fed3135b307ca4580752277561cd1a, type: 3}
   _progressBar: {fileID: 0}
   _chargeMoveDirection: {x: 1, y: 0, z: 0}
   _chargeMoveStrength: 24
