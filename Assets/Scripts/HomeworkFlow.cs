@@ -46,6 +46,20 @@ namespace DefaultNamespace
                 rightDone = false;
                 NextWork();
             }
+
+            if (GameManager.Instance.PlayerManager.IsAnyPlayerSlept())
+            {
+                if (GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name == "Chair_Left")
+                    homeworkLeft.SetInputEnabled(false);
+                else
+                    homeworkRight.SetInputEnabled(false);
+            }
+            else
+            {
+                homeworkRight.SetInputEnabled(true);
+
+                homeworkLeft.SetInputEnabled(true);
+            }
         }
 
         private void NextWork()

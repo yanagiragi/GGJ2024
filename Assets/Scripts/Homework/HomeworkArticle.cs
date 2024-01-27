@@ -46,7 +46,7 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if (!enableInput || GameManager.Instance.PlayerManager.IsAnyPlayerSlept()) return;
+            if (!enableInput) return;
 
             var c = nowArticle[wordColIndex][wordRowIndex].ToString();
             var getkey = false;
@@ -54,6 +54,10 @@ namespace DefaultNamespace
                 getkey = Input.GetKeyDown(KeyCode.Space);
             else
                 getkey = Input.GetKeyDown(c);
+            var atRight = IsAtRight(c);
+            if (GameManager.Instance.PlayerManager.IsAnyPlayerSlept())
+                if (GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name == "Chair_Left" && !atRight)
+                    return;
             if (getkey)
             {
                 Debug.Log("getkey");
@@ -113,6 +117,13 @@ namespace DefaultNamespace
         public void SetOnWorkDone(UnityAction action)
         {
             onDone += action;
+        }
+
+        private bool IsAtRight(string key)
+        {
+            return key == "J" || key == "K" || key == "L" || key == "I"
+                   || key == "H" || key == "N" || key == "M" || key == "Y"
+                   || key == " " || key == "P" || key == "O" || key == "U";
         }
 
         #region data
