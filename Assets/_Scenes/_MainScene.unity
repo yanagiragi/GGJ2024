@@ -139,6 +139,18 @@ PrefabInstance:
       propertyPath: _progressBar
       value: 
       objectReference: {fileID: 1398793813}
+    - target: {fileID: 722209080300682945, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: _chargeMoveStrength
+      value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 722209080300682945, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: _chargeMoveDirection.x
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 722209080300682945, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: _chargeMoveDirection.y
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 763628937470524772, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
       propertyPath: m_Name
       value: Map Objects
@@ -243,6 +255,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3853935567895120609, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3971379888096148881, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
       propertyPath: _progressBar
       value: 
@@ -283,6 +299,18 @@ PrefabInstance:
       propertyPath: _progressBar
       value: 
       objectReference: {fileID: 1398793812}
+    - target: {fileID: 5438354141992157513, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: _chargeMoveStrength
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438354141992157513, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: _chargeMoveDirection.x
+      value: -0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438354141992157513, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: _chargeMoveDirection.y
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 8529830775683301913, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
       propertyPath: _progressBar
       value: 
@@ -431,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5648375151578319406, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
       propertyPath: totalTime
-      value: 100
+      value: 9999
       objectReference: {fileID: 0}
     - target: {fileID: 5747858231613375203, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
       propertyPath: m_Name
