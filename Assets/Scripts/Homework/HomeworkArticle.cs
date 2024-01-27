@@ -9,6 +9,7 @@ namespace DefaultNamespace
     {
         private readonly List<List<string>> articles = new();
         private TMP_Text _text;
+
         private List<string> nowArticle = new();
 
         private UnityAction onDone;
@@ -18,28 +19,9 @@ namespace DefaultNamespace
         private void Awake()
         {
             _text = GetComponent<TMP_Text>();
-            List<string> article = new();
-            article.Add("cold");
-            article.Add("ice");
-            article.Add("snow");
-            article.Add("wind");
-            article.Add("a land");
-            article.Add("wide");
-            article.Add("deep");
-            article.Add("walk");
-            article.Add("sleep");
-            article.Add("awake");
-            article.Add("look");
-            article.Add("in cold");
-            article.Add("in ice");
-            article.Add("alone");
-            article.Add("on and on");
-            article.Add("in silence");
-            article.Add("in cake");
-            article.Add("cold");
-            article.Add("cold");
-            article.Add("cold");
-            articles.Add(article);
+            articles.Add(article1);
+            articles.Add(article2);
+            articles.Add(article3);
             NewArticle();
             UpdateText();
         }
@@ -98,5 +80,35 @@ namespace DefaultNamespace
 
             _text.text = result;
         }
+
+        #region data
+
+        private readonly List<string> article1 = new()
+        {
+            "cold", "ice", "snow", "wind", "a land", "wide", "deep", "walk",
+            "sleep", "awake", "look", "in cold", "in ice", "alone",
+            "on and on", "in silence", "in cake", "cold", "cold", "cold"
+        };
+
+        private readonly List<string> article2 = new()
+        {
+            "wind", "sock", "jam", "zip", "mix",
+            "wax", "cake", "limp", "dock",
+            "pond", "link", "mask",
+            "joke", "coal", "swan", "dim",
+            "pack", "mole", "lap", "kind",
+            "scan", "pick", "wand"
+        };
+
+        private readonly List<string> article3 = new()
+        {
+            "milk", "walk", "land", "lake",
+            "soap", "scan", "wind", "swim",
+            "mind", "pick", "kind", "joke",
+            "desk", "pack", "lamp", "loan",
+            "mask", "link", "lion", "cold"
+        };
+
+        #endregion
     }
 }
