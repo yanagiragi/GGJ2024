@@ -25,6 +25,8 @@ namespace DefaultNamespace
         private void Start()
         {
             chair.sprite = playerPicture.chair[0];
+
+            GameManager.Instance.PlayerController = this;
         }
 
         private void Update()

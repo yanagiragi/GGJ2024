@@ -9,26 +9,26 @@ public class Spirit : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private float size;
-    
+
     [Title("持續時間")]
     public float idleDuration = 5f;
 
     public float castingSpellDuration = 3f;
-    
+
     [Title("移動設定")]
     // 設定移動速度
     public float speed = 2f;
 
     // 定義移動方向，1 表示向右，-1 表示向左
     [SerializeField] private int direction = 1;
-    
+
     [SerializeField] private Transform leftBoundary, rightBoundary;
     private Transform targetBoundary;
     private IHand targetHand;
-    
+
     // 判斷是否已抵達目標位置的距離容忍值
     public float arrivalThreshold = 10f;
-    
+
     [Serializable]
     private enum GhostState
     {
@@ -51,7 +51,7 @@ public class Spirit : MonoBehaviour
     private void Update()
     {
         Vector3 scale = transform.localScale;
-        scale.x =  size * direction;
+        scale.x = size * direction;
         transform.localScale = scale;
     }
 
@@ -78,16 +78,16 @@ public class Spirit : MonoBehaviour
     {
         Debug.Log("Idle State");
         _animator.SetBool(CastingSpell, false);
-        
+
         float startTime = Time.time;
-        
+
         while (Time.time - startTime < idleDuration)
         {
             // TODO Have Some Problem
-            
+
             yield return null;
         }
-        
+
         currentState = GhostState.MoveToTarget;
     }
 
@@ -95,21 +95,21 @@ public class Spirit : MonoBehaviour
     {
         _animator.SetBool(CastingSpell, false);
         GetRandomTarget();
-        
+
         yield return MoveToTarget(targetBoundary.position);
 
         yield return new WaitForSeconds(1f);
-        
+
         currentState = GhostState.CastingSpell;
     }
 
     private void GetRandomTarget()
     {
-        bool isPlayer1 = Convert.ToBoolean(Random.Range(0, 2));
-        targetBoundary = isPlayer1 ? leftBoundary : rightBoundary;
-        targetHand = isPlayer1 ? PlayerManager.Instance.GetPlayer1() : PlayerManager.Instance.GetPlayer2();
+        var handIndex = Random.Range(0, 2);
+        targetBoundary = handIndex == 0 ? leftBoundary : rightBoundary;
+        targetHand = GameManager.Instance.HandController.GetHand(handIndex);
     }
-    
+
     IEnumerator MoveToTarget(Vector3 targetPosition)
     {
         if (targetPosition.x > transform.position.x)
@@ -120,7 +120,7 @@ public class Spirit : MonoBehaviour
         {
             direction = -1;
         }
-        
+
         while (Vector3.Distance(transform.position, targetPosition) > arrivalThreshold)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
@@ -133,10 +133,12 @@ public class Spirit : MonoBehaviour
     private IEnumerator CastingSpellState()
     {
         _animator.SetBool(CastingSpell, true);
-        
+
+        GameManager.Instance.PlayerController.Sleep();
         targetHand.EnableInput();
+
         yield return new WaitForSeconds(castingSpellDuration);
-        
+
         currentState = GhostState.Idle;
     }
 }

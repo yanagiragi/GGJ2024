@@ -135,7 +135,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         _isSlapping = true;
         yield return new WaitForSeconds(1);
 
-        this.LogError("Slap!");
+        this.Log("Slap!");
         _image.sprite = _SlapSprite;
         OnSlapEvent?.Invoke();
 

@@ -5,9 +5,27 @@ using DefaultNamespace;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour, ILogger
 {
+
+    #region Singleton
+
+    private static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+            }
+            return instance;
+        }
+    }
+    #endregion
+
     #region Variable
     public string Prefix => "遊戲流程：";
 
@@ -21,9 +39,18 @@ public class GameManager : MonoBehaviour, ILogger
     [Title("分數")]
     public int winNeedScore;
 
+    public PlayerController PlayerController;
+    public HandController HandController;
+    public ScoreManager ScoreManager => ScoreManager.Instance;
+
     #endregion
 
     #region Game Coroutine
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
