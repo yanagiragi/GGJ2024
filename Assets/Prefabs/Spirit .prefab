@@ -54,17 +54,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a005d55c5100e84096e73b87c384645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellCount: 2
   _animator: {fileID: 574290037340607503}
-  speed: 200
-  direction: 1
   idleDuration: 5
+  castingSpellDuration: 3
+  idleSpeed: 30
+  speed: 100
+  direction: 1
   leftBoundary: {fileID: 8861612461084290723}
   rightBoundary: {fileID: 8796366021474422353}
-  targetBoundary: {fileID: 0}
   arrivalThreshold: 10
   currentState: 0
-  targetPlayer: {fileID: 0}
+  _uiHand: {fileID: 0}
 --- !u!95 &574290037340607503
 Animator:
   serializedVersion: 5

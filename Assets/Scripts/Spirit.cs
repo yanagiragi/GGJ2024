@@ -14,8 +14,9 @@ public class Spirit : MonoBehaviour
     public float idleDuration = 5f;
 
     public float castingSpellDuration = 3f;
-    
-    [Title("移動設定")]
+
+    [Title("移動設定")] 
+    public float idleSpeed = 30f;
     // 設定移動速度
     public float speed = 2f;
 
@@ -83,7 +84,24 @@ public class Spirit : MonoBehaviour
         
         while (Time.time - startTime < idleDuration)
         {
-            // TODO Have Some Problem
+            // 獲取當前UI的位置
+            Vector3 currentPosition = transform.position;
+
+            // 更新UI的X軸位置，根據速度和方向
+            currentPosition.x += idleSpeed * direction * Time.deltaTime;
+
+            // 確保UI在設定的區間內移動
+            currentPosition.x = Mathf.Clamp(currentPosition.x, leftBoundary.position.x, 
+                rightBoundary.position.x);
+
+            // 將更新後的位置應用到UI
+            transform.position = currentPosition;
+
+            // 檢查是否到達邊界，如果是則改變移動方向
+            if (currentPosition.x >= rightBoundary.position.x || currentPosition.x <= leftBoundary.position.x)
+            {
+                direction *= -1;
+            }
             
             yield return null;
         }
