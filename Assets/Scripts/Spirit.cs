@@ -20,7 +20,7 @@ public class Spirit : MonoBehaviour
     }
 
     [SerializeField] private GhostState currentState = GhostState.Idle;
-    [SerializeField]private Player targetPlayer;
+    [SerializeField] private IHand targetPlayer;
 
 
     private void Start()
@@ -80,14 +80,14 @@ public class Spirit : MonoBehaviour
         while (magicCount < spellCount)
         {
             // 每秒觸發 targetPlayer.SetSleepAmount(0.1f)
-            targetPlayer.AddSleepAmount(0.1f);
+            targetPlayer.EnableInput();
 
             magicCount += Time.deltaTime;
             yield return new WaitForSeconds(5f);
         }
 
         // 持續5秒後進入閒置階段
-        
+
         currentState = GhostState.Idle;
     }
 }
