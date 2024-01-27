@@ -6,13 +6,14 @@ using Random = UnityEngine.Random;
 
 public class Spirit : MonoBehaviour
 {
-    [Title("每次施展睡眠魔法次數")]
-    [SerializeField] private int spellCount = 5;
-
     [SerializeField] private Animator _animator;
 
     private float size;
-    private string CastingSpell = "CastingSpell";
+    
+    [Title("持續時間")]
+    public float idleDuration = 5f;
+
+    public float castingSpellDuration = 3f;
     
     [Title("移動設定")]
     // 設定移動速度
@@ -20,11 +21,10 @@ public class Spirit : MonoBehaviour
 
     // 定義移動方向，1 表示向右，-1 表示向左
     [SerializeField] private int direction = 1;
-
-    public float idleDuration = 5f;
-
+    
     [SerializeField] private Transform leftBoundary, rightBoundary;
-    [SerializeField] private Transform targetBoundary;
+    private Transform targetBoundary;
+    private IHand targetHand;
     
     // 判斷是否已抵達目標位置的距離容忍值
     public float arrivalThreshold = 10f;
@@ -38,13 +38,21 @@ public class Spirit : MonoBehaviour
     }
 
     [SerializeField] private GhostState currentState = GhostState.Idle;
-    [SerializeField] private IHand targetPlayer;
+    [SerializeField] private UIHand _uiHand;
+    private static readonly int CastingSpell = Animator.StringToHash("CastingSpell");
 
 
     private void Start()
     {
         size = transform.localScale.x;
         StartCoroutine(GhostStateMachine());
+    }
+
+    private void Update()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x =  size * direction;
+        transform.localScale = scale;
     }
 
     private IEnumerator GhostStateMachine()
@@ -99,6 +107,7 @@ public class Spirit : MonoBehaviour
     {
         bool isPlayer1 = Convert.ToBoolean(Random.Range(0, 2));
         targetBoundary = isPlayer1 ? leftBoundary : rightBoundary;
+        targetHand = isPlayer1 ? PlayerManager.Instance.GetPlayer1() : PlayerManager.Instance.GetPlayer2();
     }
     
     IEnumerator MoveToTarget(Vector3 targetPosition)
@@ -125,21 +134,9 @@ public class Spirit : MonoBehaviour
     {
         _animator.SetBool(CastingSpell, true);
         
-        // targetPlayer = PlayerManager.Instance.GetRandomPlayer();
-
-        float magicCount = 0f;
-
-        while (magicCount < spellCount)
-        {
-            // 每秒觸發 targetPlayer.SetSleepAmount(0.1f)
-            // targetPlayer.EnableInput();
-
-            magicCount += 1;
-            yield return new WaitForSeconds(1f);
-        }
-
-        // 持續5秒後進入閒置階段
-
+        targetHand.EnableInput();
+        yield return new WaitForSeconds(castingSpellDuration);
+        
         currentState = GhostState.Idle;
     }
 }

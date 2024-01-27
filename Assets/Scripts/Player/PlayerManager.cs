@@ -25,11 +25,21 @@ public class PlayerManager : MonoBehaviour
 
     #endregion
 
-    public List<IHand> players = new List<IHand>();
-
+    public List<UIHand> players = new List<UIHand>();
+    
     public IHand GetRandomPlayer()
     {
         var i = Random.Range(0, players.Count);
         return players[i];
+    }
+
+    public UIHand GetPlayer1()
+    {
+        return players[0];
+    }
+
+    public UIHand GetPlayer2()
+    {
+        return players[1];
     }
 }
