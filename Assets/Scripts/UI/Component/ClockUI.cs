@@ -8,6 +8,8 @@ namespace UI.Component
     {
         [SerializeField] private MMProgressBar _progressBar;
 
+        [SerializeField] private Transform pointer;
+
         public float timeProgress;
         
         private void Update()
@@ -17,8 +19,10 @@ namespace UI.Component
 
         private void UpdateProgress()
         {
-            timeProgress = 1 - Timer.Instance.GetTimeRadio();
+            timeProgress = Timer.Instance.GetTimeRadio();
             _progressBar.SetBar(timeProgress, 0, 1);
+            
+            pointer.eulerAngles = new Vector3(0, 0, timeProgress * 360f);
         }
     }
 }
