@@ -111,6 +111,8 @@ public class Spirit : MonoBehaviour
 
     private IEnumerator MovingState()
     {
+        GameManager.Instance.AudioManager.PlaySE(SE.Ghost);
+        
         _animator.SetBool(CastingSpell, false);
 
         // 如果有任何玩家睡著，回到 Idle 狀態
@@ -158,9 +160,9 @@ public class Spirit : MonoBehaviour
     private IEnumerator CastingSpellState()
     {
         _animator.SetBool(CastingSpell, true);
-
+        
         GameManager.Instance.PlayerManager.Sleep(targetIndex);
-
+        GameManager.Instance.AudioManager.PlaySE(SE.ScaryLaugh);
         var targetHand = GameManager.Instance.HandManager.GetHand(targetIndex);
         targetHand.EnableInput();
         yield return new WaitForSeconds(castingSpellDuration);

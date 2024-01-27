@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class ResultUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI result, score;
+    [SerializeField] private TextMeshProUGUI score;
 
+    [SerializeField] private GameObject winPanel, losePanel;
+    
     private void Start()
     {
         ShowResult();
@@ -15,7 +17,14 @@ public class ResultUI : MonoBehaviour
 
     private void ShowResult()
     {
-        result.text = ScoreManager.Instance.IsWin ? "Win" : "Lose";
+        if (ScoreManager.Instance.IsWin)
+        {
+            winPanel.SetActive(true);
+        }
+        else
+        {
+            losePanel.SetActive(true);
+        }
         score.text = $"Score: {ScoreManager.Instance.Score}";
         
     }

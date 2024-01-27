@@ -14,6 +14,8 @@ namespace DefaultNamespace
         public void SetIsWin(int winNeedScore)
         {
             IsWin = Score >= winNeedScore;
+            string winStatus = IsWin ? "Win" : "Lose";
+            Logger.Log(this, $"Game {winStatus}!!!");
         }
 
         public void InitScore()
