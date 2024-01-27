@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Picture/Left.meta
+guid: c7e913c6f1f6cae4ab83acd51e0c9054
+========
+guid: c6faf974139bc0d438f0e67e4aa653e3
+>>>>>>>> upstream/main:Assets/Textures/Ghost.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

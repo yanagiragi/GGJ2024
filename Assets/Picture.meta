@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Picture.meta
 guid: 7cd723da4b4030445802062228062cf8
 folderAsset: yes
+========
+guid: 933715dd7786f4de88da16a438344a4b
+>>>>>>>> upstream/main:Assets/_Scenes/_Result.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
