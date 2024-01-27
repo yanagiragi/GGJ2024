@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UI.Component;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +33,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     [SerializeField] private bool _isEnableInput;
 
     public bool IsEnableInput => _isEnableInput;
-    
+
     private Vector3 _originalPosition;
 
     #endregion
