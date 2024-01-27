@@ -33,6 +33,9 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     [SerializeField] private float _chargeTarget = 0;
     [SerializeField] private bool _isSlapping;
     [SerializeField] private bool _isEnableInput;
+
+    public bool IsEnableInput => _isEnableInput;
+    
     private Vector3 _originalPosition;
 
     #endregion

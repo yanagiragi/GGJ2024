@@ -94,20 +94,30 @@ public class Spirit : MonoBehaviour
     private IEnumerator MovingState()
     {
         _animator.SetBool(CastingSpell, false);
-        GetRandomTarget();
-        
-        yield return MoveToTarget(targetBoundary.position);
 
-        yield return new WaitForSeconds(1f);
+        // 如果有任何玩家睡著，回到 Idle 狀態
+        if (PlayerManager.Instance.HaveAnySleepPlayer())
+        {
+            currentState = GhostState.Idle;
+        }
+        else
+        {
+            GetRandomTarget();
         
-        currentState = GhostState.CastingSpell;
+            yield return MoveToTarget(targetBoundary.position);
+            yield return new WaitForSeconds(1f);
+        
+            currentState = GhostState.CastingSpell;
+        }
     }
 
     private void GetRandomTarget()
     {
-        bool isPlayer1 = Convert.ToBoolean(Random.Range(0, 2));
-        targetBoundary = isPlayer1 ? leftBoundary : rightBoundary;
+        bool isPlayer1 = PlayerManager.Instance.GetRandomNotSleepPlayer();
+        Debug.Log($"isPlayer1 {isPlayer1}");
+        
         targetHand = isPlayer1 ? PlayerManager.Instance.GetPlayer1() : PlayerManager.Instance.GetPlayer2();
+        targetBoundary = isPlayer1 ? leftBoundary : rightBoundary;
     }
     
     IEnumerator MoveToTarget(Vector3 targetPosition)
