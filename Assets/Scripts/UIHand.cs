@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public sealed class UIHand : MonoBehaviour, IHand, ILogger
 {
+    #region Action
+    public event Action OnSlapEvent;
+    #endregion
+
     #region Properties
     public string Prefix => "<UIHand>";
 
@@ -16,6 +20,8 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
     #region Variables
     [SerializeField] private Image _image;
+    [SerializeField] private Sprite _normalSprite;
+    [SerializeField] private Sprite _SlapSprite;
     [SerializeField] private ProgressBar _progressBar;
     [SerializeField] private Vector3 _chargeMoveDirection = new Vector3(1, 1, 0);
     [SerializeField] private float _chargeMoveStrength = 5;
@@ -36,6 +42,8 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     {
         _originalPosition = transform.position;
         _progressBar.SetValue(0);
+
+        _image.sprite = _normalSprite;
     }
 
     public void Update()
@@ -68,6 +76,11 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
     public void Resolve(bool isInputDown)
     {
+        if (isInputDown && !_isEnableInput)
+        {
+            this.Log("Detect isInputDown but UIHand is not enable for input");
+        }
+
         if (_isSlapping || !_isEnableInput)
         {
             return;
@@ -92,6 +105,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
                 var originalChargeTimer = _chargeTimer;
                 _chargeTimer -= Time.deltaTime * _restoreSpeed;
                 _chargeTimer = Mathf.Clamp(_chargeTimer, 0, _chargeTarget);
+                // this.LogError($"{(originalChargeTimer - _chargeTimer) / _slapChargeCount}");
                 _progressBar.Minus((originalChargeTimer - _chargeTimer) / _slapChargeCount);
             }
             else
@@ -110,16 +124,16 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     #region Private Methods
     private IEnumerator _slap()
     {
-        _image.color = Color.blue;
-
         _isSlapping = true;
-        yield return new WaitForSeconds(3);
-
-        this.LogError("Slap!");
-        _image.color = Color.red;
         yield return new WaitForSeconds(1);
 
-        _image.color = Color.white;
+        this.LogError("Slap!");
+        _image.sprite = _SlapSprite;
+        OnSlapEvent?.Invoke();
+
+        yield return new WaitForSeconds(1);
+
+        _image.sprite = _normalSprite;
         _isSlapping = false;
         _resetAll();
     }
@@ -129,11 +143,10 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         transform.position = _originalPosition;
         _chargeTarget = 0;
         _chargeTimer = 0;
+        _progressBar.SetValue(0);
     }
     #endregion
 
     #region Editor Methods
-    [ContextMenu("Enable Input")]
-    public void _DebugEnableInput() => EnableInput();
     #endregion
 }

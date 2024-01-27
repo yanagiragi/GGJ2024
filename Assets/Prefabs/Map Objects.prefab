@@ -281,6 +281,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 4622238273872717513, guid: f85c9b574a6695c4d8204eb4501dc46e, type: 3}
+      propertyPath: _restoreSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622238273872717513, guid: f85c9b574a6695c4d8204eb4501dc46e, type: 3}
+      propertyPath: _slapChargeCount
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622238273872717513, guid: f85c9b574a6695c4d8204eb4501dc46e, type: 3}
+      propertyPath: _chargeMoveStrength
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622238273872717513, guid: f85c9b574a6695c4d8204eb4501dc46e, type: 3}
+      propertyPath: _chargeMoveDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
