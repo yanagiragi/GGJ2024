@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<main role="main" class="container">
+
+<a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
+<a id="p1" class="btn btn-lg btn-success py-1" href="#" role="button">player1</a>
+<a id="p2" class="btn btn-lg btn-success py-2" href="#" role="button">player2</a>
+
+
+
+</div>
+</main>
+<script>
+let player ="";
+let p1Button = document.getElementById("p1");
+p1Button.onclick = function(e){
+  e.preventDefault();
+  player = "playerOne";
+};
+let p2Button = document.getElementById("p2");
+p2Button.onclick = function(e){
+  e.preventDefault();
+  player = "playerTwo";
+};
+
+
+let demo_button = document.getElementById("start_demo");
+
+demo_button.onclick = function(e){
+  e.preventDefault();
+
+
+  if (
+    DeviceMotionEvent &&
+    typeof DeviceMotionEvent.requestPermission === "function"
+  ) {
+    DeviceMotionEvent.requestPermission();
+  }
+
+  window.addEventListener("devicemotion", (event) => {
+      if(event.acceleration.x>0.5 ){
+          fetch("http://localhost:13579/Slap?playerId="+player, {mode:'cors'})
+        .then((response) =>  json = response.json())
+        .then((json) => alert(json));
+      }
+    }
+  )
+}
+
+
+</script>
+</body>
+</html>

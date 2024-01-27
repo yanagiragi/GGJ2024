@@ -129,11 +129,9 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
     // Update is called once per frame
     private void Update()
     {
-        if (isInputEnabled)
-        {
-            UpdateAppear();
-            GetInput();
-        }
+        if (!isInputEnabled) return;
+        UpdateAppear();
+        GetInput();
 
         // if (Input.GetKeyDown(KeyCode.Space)) SetInputEnabled(!isInputEnabled);
     }
