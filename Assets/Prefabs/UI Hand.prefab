@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7118301555812174429}
   - component: {fileID: 7555499714521746165}
   - component: {fileID: 5281716446037076967}
-  - component: {fileID: 3830781728248469311}
   m_Layer: 5
   m_Name: UI Hand
   m_TagString: Untagged
@@ -91,28 +90,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 7555499714521746165}
-  _player: {fileID: 3830781728248469311}
-  _chargeMoveDirection: {x: 0, y: 1, z: 0}
-  _chargeMoveStrength: 15
-  _slapChargeCount: 10
+  _normalSprite: {fileID: 21300000, guid: 71633cbe70ed7e94193c011c732afdfb, type: 3}
+  _SlapSprite: {fileID: 21300000, guid: 6083c8010cc17f74c86ca6ac941511dc, type: 3}
+  _progressBar: {fileID: 0}
+  _chargeMoveDirection: {x: 1, y: 0, z: 0}
+  _chargeMoveStrength: 24
+  _slapChargeCount: 15
   _restoreSpeed: 5
   _chargeTimer: 0
   _chargeTarget: 0
-  isSlapping: 0
---- !u!114 &3830781728248469311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6645461128345749106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0ee69fbad15454fa596b807256a7e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sleepAmount: 0
-  sleepThreshold: 0.7
-  isSleep: 0
-  addPerSecond: 0
-  _progressBar: {fileID: 0}
+  _isSlapping: 0
+  _isEnableInput: 0

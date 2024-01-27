@@ -7,4 +7,6 @@ public interface IHand
     public void Slap();
 
     public void Resolve(bool isInputDown);
+
+    public void EnableInput();
 }

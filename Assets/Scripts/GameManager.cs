@@ -10,24 +10,19 @@ public class GameManager : MonoBehaviour, ILogger
 {
     #region Variable
     public string Prefix => "遊戲流程：";
-    
+
     [SerializeField] private Timer timer;
 
     private Coroutine gameCoroutine;
 
     [Title("遊戲中")]
     public bool IsGaming;
-    
-    [Title("分數")] 
+
+    [Title("分數")]
     public int winNeedScore;
-    
+
     #endregion
 
-    [Title("玩家")]
-    [SerializeField] private Player player1, player2;
-    [SerializeField] private float startSleepAmount = 0.3f;
-    
-  
     #region Game Coroutine
 
     private void Start()
@@ -38,17 +33,17 @@ public class GameManager : MonoBehaviour, ILogger
     [Button("開始遊戲")]
     public void StartGame()
     {
-        Logger.Log(this,"Start Game");
+        Logger.Log(this, "Start Game");
         gameCoroutine = StartCoroutine(GameCoroutine());
     }
 
     private IEnumerator GameCoroutine()
     {
         InitialGame();
-        
+
         // 等待時間結束
-        yield return new WaitUntil(()=>timer.TimeOver);
-        
+        yield return new WaitUntil(() => timer.TimeOver);
+
         yield return GameOver();
     }
 
@@ -57,18 +52,17 @@ public class GameManager : MonoBehaviour, ILogger
         IsGaming = true;
         timer.StartTimer();
         ScoreManager.Instance.InitScore();
-        InitPlayerData();
     }
 
     private IEnumerator GameOver()
     {
-        Logger.Log(this,"GameOver");
+        Logger.Log(this, "GameOver");
         timer.StopTimer();
         IsGaming = false;
         JudgeWinCondition();
 
         yield return new WaitForSeconds(0.5f);
-        
+
         StopCoroutine(gameCoroutine);
         EnterResultScene();
     }
@@ -77,7 +71,7 @@ public class GameManager : MonoBehaviour, ILogger
     {
         ScoreManager.Instance.SetIsWin(winNeedScore);
     }
-    
+
     private void EnterResultScene()
     {
         SceneManager.LoadScene("_Result");
@@ -86,15 +80,8 @@ public class GameManager : MonoBehaviour, ILogger
     #endregion
 
     #region Player Setting
-
-    private void InitPlayerData()
-    {
-        player1.SetSleepAmount(startSleepAmount);
-        player2.SetSleepAmount(startSleepAmount);
-    }
-
     #endregion
-    
+
 
     #region Test
 

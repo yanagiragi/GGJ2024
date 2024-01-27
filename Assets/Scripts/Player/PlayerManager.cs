@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -23,13 +24,12 @@ public class PlayerManager : MonoBehaviour
     }
 
     #endregion
-    
-    public Player player1, player2;
 
-    public Player GetRandomPlayer()
+    public List<IHand> players = new List<IHand>();
+
+    public IHand GetRandomPlayer()
     {
-        var i = Random.Range(0,1);
-
-        return i == 0 ? player1 : player2;
+        var i = Random.Range(0, players.Count);
+        return players[i];
     }
 }

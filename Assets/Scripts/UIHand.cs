@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public sealed class UIHand : MonoBehaviour, IHand, ILogger
 {
+    #region Action
+    public event Action OnSlapEvent;
+    #endregion
+
     #region Properties
     public string Prefix => "<UIHand>";
 
@@ -16,9 +20,9 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
     #region Variables
     [SerializeField] private Image _image;
-    
-    [SerializeField] private Player _player;
-    
+    [SerializeField] private Sprite _normalSprite;
+    [SerializeField] private Sprite _SlapSprite;
+    [SerializeField] private ProgressBar _progressBar;
     [SerializeField] private Vector3 _chargeMoveDirection = new Vector3(1, 1, 0);
     [SerializeField] private float _chargeMoveStrength = 5;
     [SerializeField] private int _slapChargeCount = 10;
@@ -27,7 +31,8 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     [Header("Read Only")]
     [SerializeField] private float _chargeTimer = 0;
     [SerializeField] private float _chargeTarget = 0;
-    [SerializeField] private bool isSlapping;
+    [SerializeField] private bool _isSlapping;
+    [SerializeField] private bool _isEnableInput;
     private Vector3 _originalPosition;
 
     #endregion
@@ -36,29 +41,47 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     public void Start()
     {
         _originalPosition = transform.position;
+        _progressBar.SetValue(0);
+
+        _image.sprite = _normalSprite;
     }
 
     public void Update()
     {
     }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + _chargeMoveDirection * _chargeMoveStrength);
+    }
+    #endregion
+
+    #region Apis
     #endregion
 
     #region IHand
+    public void EnableInput() => _isEnableInput = true;
 
     public void Slap()
     {
-        if (isSlapping)
+        if (_isSlapping)
         {
             this.Log("Ignore slapping since we are already slapping");
             return;
         }
 
+        _isEnableInput = false;
         StartCoroutine(_slap());
     }
 
     public void Resolve(bool isInputDown)
     {
-        if (isSlapping)
+        if (isInputDown && !_isEnableInput)
+        {
+            this.Log("Detect isInputDown but UIHand is not enable for input");
+        }
+
+        if (_isSlapping || !_isEnableInput)
         {
             return;
         }
@@ -73,7 +96,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         {
             _chargeTarget += 1;
             _chargeTimer = _chargeTarget;
-            _player.AddSleepAmount(1.0f / _slapChargeCount);
+            _progressBar.Plus(1.0f / _slapChargeCount);
         }
         else
         {
@@ -82,7 +105,8 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
                 var originalChargeTimer = _chargeTimer;
                 _chargeTimer -= Time.deltaTime * _restoreSpeed;
                 _chargeTimer = Mathf.Clamp(_chargeTimer, 0, _chargeTarget);
-                _player.SubSleepAmount((originalChargeTimer - _chargeTimer) / _slapChargeCount);
+                // this.LogError($"{(originalChargeTimer - _chargeTimer) / _slapChargeCount}");
+                _progressBar.Minus((originalChargeTimer - _chargeTimer) / _slapChargeCount);
             }
             else
             {
@@ -100,17 +124,17 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     #region Private Methods
     private IEnumerator _slap()
     {
-        _image.color = Color.blue;
-
-        isSlapping = true;
-        yield return new WaitForSeconds(3);
-
-        this.LogError("Slap!");
-        _image.color = Color.red;
+        _isSlapping = true;
         yield return new WaitForSeconds(1);
 
-        _image.color = Color.white;
-        isSlapping = false;
+        this.LogError("Slap!");
+        _image.sprite = _SlapSprite;
+        OnSlapEvent?.Invoke();
+
+        yield return new WaitForSeconds(1);
+
+        _image.sprite = _normalSprite;
+        _isSlapping = false;
         _resetAll();
     }
 
@@ -119,6 +143,10 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         transform.position = _originalPosition;
         _chargeTarget = 0;
         _chargeTimer = 0;
+        _progressBar.SetValue(0);
     }
+    #endregion
+
+    #region Editor Methods
     #endregion
 }

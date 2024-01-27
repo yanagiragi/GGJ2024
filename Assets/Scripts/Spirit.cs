@@ -12,6 +12,7 @@ public class Spirit : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private float size;
+    private string CastingSpell = "CastingSpell";
     
     [Title("移動設定")]
     // 設定移動速度
@@ -37,21 +38,13 @@ public class Spirit : MonoBehaviour
     }
 
     [SerializeField] private GhostState currentState = GhostState.Idle;
-    [SerializeField] private Player targetPlayer;
-    private static readonly int CastingSpell = Animator.StringToHash("CastingSpell");
+    [SerializeField] private IHand targetPlayer;
 
 
     private void Start()
     {
         size = transform.localScale.x;
         StartCoroutine(GhostStateMachine());
-    }
-
-    private void Update()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x =  size * direction;
-        transform.localScale = scale;
     }
 
     private IEnumerator GhostStateMachine()
@@ -132,21 +125,21 @@ public class Spirit : MonoBehaviour
     {
         _animator.SetBool(CastingSpell, true);
         
-        targetPlayer = PlayerManager.Instance.GetRandomPlayer();
+        // targetPlayer = PlayerManager.Instance.GetRandomPlayer();
 
         float magicCount = 0f;
 
         while (magicCount < spellCount)
         {
             // 每秒觸發 targetPlayer.SetSleepAmount(0.1f)
-            targetPlayer.AddSleepAmount(0.1f);
+            // targetPlayer.EnableInput();
 
             magicCount += 1;
             yield return new WaitForSeconds(1f);
         }
 
         // 持續5秒後進入閒置階段
-        
+
         currentState = GhostState.Idle;
     }
 }
