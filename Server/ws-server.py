@@ -34,6 +34,10 @@ async def echo(websocket, path):
             print('error - websockets.exceptions.ConnectionClosed')
             del users['unity'] # we haven't handle unity socket close event for now
             pass
+        except websockets.exceptions.ConnectionClosedError:
+            print('error - websockets.exceptions.ConnectionClosed')
+            del users['unity'] # we haven't handle unity socket close event for now
+            pass
         except:
             print('error')
 
