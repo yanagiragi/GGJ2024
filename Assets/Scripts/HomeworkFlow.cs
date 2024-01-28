@@ -1,18 +1,22 @@
 ﻿using System;
+using Homework;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
     internal enum WorkType
     {
         Article,
-        Command
+        Command,
+        River
     }
 
     public class HomeworkFlow : MonoBehaviour
     {
         [SerializeField] private GameObject homeworkPrefab;
         [SerializeField] private GameObject articlePrefab;
+        [SerializeField] private GameObject riverPrefab;
         [SerializeField] private Transform homeWorkSpawnPos;
         private HomeworkArticle article;
 
@@ -23,6 +27,8 @@ namespace DefaultNamespace
 
         private WorkType nowWorkType;
         private bool rightDone;
+
+        private HwRiver river;
 
         private void Start()
         {
@@ -36,6 +42,10 @@ namespace DefaultNamespace
             homeworkRight.SetInputDictionary(KeyCode.J, KeyCode.K, KeyCode.L, KeyCode.I);
             homeworkLeft.SetOnWorkDone(LeftDone);
             homeworkRight.SetOnWorkDone(RightDone);
+
+            river = Instantiate(riverPrefab, transform).GetComponent<HwRiver>();
+            river.SetOnDoneAction(RiverDone);
+
             SwitchWorkType(WorkType.Command);
         }
 
@@ -65,16 +75,18 @@ namespace DefaultNamespace
 
         private void NextWork()
         {
-            switch (nowWorkType)
+            var random = Random.Range(0, 3);
+            switch (random)
             {
-                case WorkType.Article:
-                    SwitchWorkType(WorkType.Command);
-                    break;
-                case WorkType.Command:
+                case 0:
                     SwitchWorkType(WorkType.Article);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                case 1:
+                    SwitchWorkType(WorkType.Command);
+                    break;
+                case 2:
+                    SwitchWorkType(WorkType.River);
+                    break;
             }
         }
 
@@ -85,6 +97,7 @@ namespace DefaultNamespace
             {
                 case WorkType.Article:
                     article.gameObject.SetActive(true);
+                    river.gameObject.SetActive(false);
                     homeworkLeft.gameObject.SetActive(false);
                     homeworkRight.gameObject.SetActive(false);
                     // article.SetEnableInput(true);
@@ -94,6 +107,7 @@ namespace DefaultNamespace
                     break;
                 case WorkType.Command:
                     article.gameObject.SetActive(false);
+                    river.gameObject.SetActive(false);
                     homeworkLeft.gameObject.SetActive(true);
                     homeworkRight.gameObject.SetActive(true);
                     // article.SetEnableInput(false);
@@ -102,6 +116,14 @@ namespace DefaultNamespace
                     homeworkLeft.AddCommands(4);
                     homeworkRight.AddCommands(4);
                     break;
+                case WorkType.River:
+                    river.gameObject.SetActive(true);
+                    article.gameObject.SetActive(false);
+                    homeworkLeft.gameObject.SetActive(false);
+                    homeworkRight.gameObject.SetActive(false);
+                    river.Init();
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -130,6 +152,12 @@ namespace DefaultNamespace
         private void WordDone()
         {
             AddScore(1);
+        }
+
+        private void RiverDone()
+        {
+            AddScore(5);
+            NextWork();
         }
 
         private void AddScore(int score)

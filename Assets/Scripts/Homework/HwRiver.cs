@@ -64,7 +64,7 @@ namespace Homework
                     dir * (Mathf.Lerp(0, soCloseDistance * biggerScale - distance, 0.2f) * Time.deltaTime);
         }
 
-        private void Init()
+        public void Init()
         {
             hint.transform.position = transform.position - new Vector3(1, 0, 0);
             currTime = 0;

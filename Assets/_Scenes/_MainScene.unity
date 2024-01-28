@@ -1626,6 +1626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   homeworkPrefab: {fileID: 1964718014450567911, guid: 089f2d5460658274a9f736cfcb7e65b2, type: 3}
   articlePrefab: {fileID: 5736211653645803551, guid: c55417bccefdefb4ea38f0f05dfd06d6, type: 3}
+  riverPrefab: {fileID: 597623955351182255, guid: 5b3ab32b311c599459b402ae12c3db14, type: 3}
   homeWorkSpawnPos: {fileID: 1398793814}
 --- !u!1 &2110297204
 GameObject:
