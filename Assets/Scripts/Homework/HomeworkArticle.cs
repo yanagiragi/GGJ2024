@@ -8,7 +8,7 @@ namespace DefaultNamespace
     public class HomeworkArticle : MonoBehaviour
     {
         private readonly List<List<string>> articles = new();
-        private TMP_Text _text;
+        [SerializeField] private TMP_Text _text;
         private bool enableInput;
 
         private List<string> nowArticle = new();
@@ -18,9 +18,10 @@ namespace DefaultNamespace
         private int wordColIndex;
         private int wordRowIndex;
 
+        [SerializeField] private GameObject cursor;
+
         private void Awake()
         {
-            _text = GetComponent<TMP_Text>();
             articles.Add(article1);
             articles.Add(article2);
             articles.Add(article3);
@@ -70,6 +71,7 @@ namespace DefaultNamespace
                 wordRowIndex++;
                 if (wordRowIndex >= nowArticle[wordColIndex].Length)
                 {
+                    cursor.SetActive(false);
                     wordColIndex++;
                     wordRowIndex = 0;
                     if (wordColIndex >= nowArticle.Count)
@@ -107,6 +109,7 @@ namespace DefaultNamespace
             wordRowIndex = 0;
             wordColIndex = 0;
             UpdateText();
+            cursor.SetActive(true);
         }
 
         private void UpdateText()
