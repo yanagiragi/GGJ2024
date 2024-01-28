@@ -37,11 +37,22 @@ public class AudioManager : MonoSingleton<AudioManager>, ILogger
         {
             PlayBGM(_musicData.titleBGM);
         }
-        else
+        else if (scene.name == "_Result")
+        {
+            StartCoroutine(PlayResultBgm());
+        }else
         {
             int randomIndex = Random.Range(0, _musicData.gameBGMs.Length);
             PlayBGM(_musicData.gameBGMs[randomIndex]);
         }
+    }
+
+    private IEnumerator PlayResultBgm()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        int randomIndex = Random.Range(0, _musicData.gameBGMs.Length);
+        PlayBGM(_musicData.gameBGMs[randomIndex]);
     }
     
 
@@ -60,7 +71,7 @@ public class AudioManager : MonoSingleton<AudioManager>, ILogger
 
         pitchSoundEffect.pitch = pitch;
         pitchSoundEffect.clip = audioClip;
-        pitchSoundEffect.Play();
+        pitchSoundEffect.PlayOneShot(audioClip);
         Logger.Log(this,$"播放 SE {se} 以 pitch {pitch}");
     }
     
@@ -70,7 +81,7 @@ public class AudioManager : MonoSingleton<AudioManager>, ILogger
         var audioClip = _musicData.seDict[se];
             
         soundEffect.clip = audioClip;
-        soundEffect.Play();
+        soundEffect.PlayOneShot(audioClip);
         Logger.Log(this,$"播放 SE {se}");
     }
 
