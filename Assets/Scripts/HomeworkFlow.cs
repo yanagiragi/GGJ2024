@@ -16,7 +16,7 @@ namespace DefaultNamespace
         [SerializeField] private GameObject homeworkPrefab;
         [SerializeField] private GameObject articlePrefab;
         [SerializeField] private GameObject riverPrefab;
-        [SerializeField] private Transform homeWorkSpawnPos;
+        [SerializeField] private Transform homeWorkSpawnPos, rightArrowSpawnPos, leftArrowSpawnPos;
         private HomeworkArticle article;
 
         private HomeworkCommandManager homeworkLeft;
@@ -34,10 +34,8 @@ namespace DefaultNamespace
             article = Instantiate(articlePrefab, homeWorkSpawnPos).GetComponent<HomeworkArticle>();
             article.SetOnWorkDone(ArticleDone);
             article.SetOnWordDone(WordDone);
-            homeworkLeft = Instantiate(homeworkPrefab, transform).GetComponent<HomeworkCommandManager>();
-            homeworkLeft.transform.position += new Vector3(-700, 0, 0);
-            homeworkRight = Instantiate(homeworkPrefab, transform).GetComponent<HomeworkCommandManager>();
-            homeworkRight.transform.position += new Vector3(700, 0, 0);
+            homeworkLeft = Instantiate(homeworkPrefab, leftArrowSpawnPos).GetComponent<HomeworkCommandManager>();
+            homeworkRight = Instantiate(homeworkPrefab, rightArrowSpawnPos).GetComponent<HomeworkCommandManager>();
             homeworkRight.SetInputDictionary(KeyCode.J, KeyCode.K, KeyCode.L, KeyCode.I);
             homeworkLeft.SetOnWorkDone(LeftDone);
             homeworkRight.SetOnWorkDone(RightDone);
