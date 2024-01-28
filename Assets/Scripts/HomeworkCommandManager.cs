@@ -62,10 +62,23 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
                 commands.Peek() == pair.Key)
             {
                 commands.Dequeue();
-                if (commands.Count == 0) onWorkDone?.Invoke();
+                if (commands.Count == 0)
+                {
+                    onWorkDone?.Invoke();
+                    GameManager.Instance.AudioManager.PlaySE(SE.GetPoint);
+                }
+                else
+                {
+                    GameManager.Instance.AudioManager.PlaySE(SE.Arrow);
+                }
+                
                 // AddCommands(4);
                 UpdateArrow();
+                
+                return;
             }
+        
+        
     }
 
 

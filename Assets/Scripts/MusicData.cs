@@ -10,7 +10,12 @@ public enum SE
     ScaryLaugh,
     Slap,
     Spring,
-    Win
+    Win,
+    Arrow,
+    Click1,
+    Click2,
+    Click3,
+    GetPoint,
 }
     
 public enum Bgm

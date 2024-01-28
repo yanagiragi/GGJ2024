@@ -61,6 +61,8 @@ namespace DefaultNamespace
             if (getkey)
             {
                 Debug.Log("getkey");
+                PlayClickSE();
+                
                 wordRowIndex++;
                 if (wordRowIndex >= nowArticle[wordColIndex].Length)
                 {
@@ -70,6 +72,7 @@ namespace DefaultNamespace
                     {
                         NewArticle();
                         onDone?.Invoke();
+                        GameManager.Instance.AudioManager.PlaySE(SE.GetPoint);
                     }
 
                     onWordDone?.Invoke();
@@ -77,6 +80,16 @@ namespace DefaultNamespace
 
                 UpdateText();
             }
+        }
+
+        private void PlayClickSE()
+        {
+            GameManager.Instance.AudioManager.PlayRandomSE(new SE[]
+            {
+                SE.Click1,
+                SE.Click2,
+                SE.Click3
+            });
         }
 
         public void SetEnableInput(bool enable)
