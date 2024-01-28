@@ -24,7 +24,7 @@ public class ScoreUI : MonoBehaviour
     }
 
     [Button("更新分數 UI")]
-    private void UpdateScoreUI(int score)
+    public void UpdateScoreUI(int score)
     {
         foreach (var numberImage in numberImages)
         {

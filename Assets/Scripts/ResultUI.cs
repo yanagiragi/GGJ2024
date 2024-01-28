@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class ResultUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI score;
 
     [SerializeField] private GameObject winPanel, losePanel;
 
-    [SerializeField] private AudioManager _audioManager;
+    [SerializeField] private ScoreUI _scoreUI;
     
     private void Start()
     {
@@ -23,16 +22,16 @@ public class ResultUI : MonoBehaviour
         {
             winPanel.SetActive(true);
             losePanel.SetActive(false);
-            _audioManager.PlaySE(SE.Win);
+            AudioManager.Instance.PlaySE(SE.Win);
         }
         else
         {
             winPanel.SetActive(false);
             losePanel.SetActive(true);
-            _audioManager.PlaySE(SE.Lose);
+            AudioManager.Instance.PlaySE(SE.Lose);
         }
-        score.text = $"Score: {ScoreManager.Instance.Score}";
         
+        _scoreUI.UpdateScoreUI(ScoreManager.Instance.Score);
     }
 
     public void BackToTitle()

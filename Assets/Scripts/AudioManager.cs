@@ -79,12 +79,12 @@ public class AudioManager : MonoSingleton<AudioManager>, ILogger
     public void PlaySE(SE se)
     {
         var audioClip = _musicData.seDict[se];
-            
+
         soundEffect.clip = audioClip;
         soundEffect.PlayOneShot(audioClip);
         Logger.Log(this,$"播放 SE {se}");
     }
-
+    
     [Button("播放音樂")]
     public void PlayBGM(AudioClip clip)
     {
