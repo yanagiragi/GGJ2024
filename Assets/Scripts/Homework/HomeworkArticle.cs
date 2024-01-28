@@ -57,8 +57,6 @@ namespace DefaultNamespace
             var atRight = IsAtRight(c);
             if (GameManager.Instance.PlayerManager.IsAnyPlayerSlept())
             {
-                Debug.Log(GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name != "Chair_Left");
-                Debug.Log("atright" + atRight);
                 if (GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name != "Chair_Left" && atRight)
                     return;
                 if (GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name == "Chair_Left" && !atRight)
@@ -67,9 +65,8 @@ namespace DefaultNamespace
 
             if (getkey)
             {
-                Debug.Log("getkey");
                 PlayClickSE();
-                
+
                 wordRowIndex++;
                 if (wordRowIndex >= nowArticle[wordColIndex].Length)
                 {
@@ -91,7 +88,7 @@ namespace DefaultNamespace
 
         private void PlayClickSE()
         {
-            AudioManager.Instance.PlayRandomSE(new SE[]
+            AudioManager.Instance.PlayRandomSE(new[]
             {
                 SE.Click1,
                 SE.Click2,

@@ -6,7 +6,7 @@ namespace Homework
 {
     public class HwRiver : MonoBehaviour
     {
-        [SerializeField] private float moveDistance = 10f;
+        [SerializeField] private float moveDistance = 30f;
         private float currTime;
         private UnityAction doneAction;
 
@@ -32,12 +32,21 @@ namespace Homework
 
         private void Update()
         {
+            var leftEnalbe = true;
+            var rightEnalbe = true;
+
+            if (GameManager.Instance.PlayerManager.IsAnyPlayerSlept())
+            {
+                rightEnalbe = !(GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name != "Chair_Left");
+                leftEnalbe = !(GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name == "Chair_Left");
+            }
+
             var distance = Vector2.Distance(Keyboard.transform.position, transform.position);
             var soCloseDistance = 50f;
             UpdateArrowAnimation();
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A) && leftEnalbe)
                 hint.transform.position += new Vector3(-moveDistance, 0, 0);
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L) && rightEnalbe)
                 hint.transform.position += new Vector3(moveDistance, 0, 0);
             if (soCloseDistance > distance)
             {

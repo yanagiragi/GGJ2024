@@ -1,7 +1,6 @@
 ﻿using System;
 using Homework;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -75,18 +74,19 @@ namespace DefaultNamespace
 
         private void NextWork()
         {
-            var random = Random.Range(0, 3);
-            switch (random)
+            switch (nowWorkType)
             {
-                case 0:
-                    SwitchWorkType(WorkType.Article);
-                    break;
-                case 1:
+                case WorkType.Article:
                     SwitchWorkType(WorkType.Command);
                     break;
-                case 2:
+                case WorkType.Command:
                     SwitchWorkType(WorkType.River);
                     break;
+                case WorkType.River:
+                    SwitchWorkType(WorkType.Article);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
