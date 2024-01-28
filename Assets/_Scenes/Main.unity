@@ -251,6 +251,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7995467978676175208, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -314,6 +318,11 @@ MonoBehaviour:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5292066721319670088, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
   m_PrefabInstance: {fileID: 114386685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &285798055 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2701212354132905094, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
+  m_PrefabInstance: {fileID: 1630189631}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
@@ -558,11 +567,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
---- !u!224 &923194267 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5782189264261672914, guid: a16bba1cafe134e9ea2c6410a654c1b9, type: 3}
-  m_PrefabInstance: {fileID: 114386685}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1169371125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1161,33 +1165,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6357337293888261640, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: eb6810f369a87154794ab2a24b1ab36a, type: 3}
-    - target: {fileID: 6623702802805024540, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 6623702802805024540, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 6623702802805024540, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6623702802805024540, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9131592800494689833, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
       propertyPath: m_Name
       value: Background
-      objectReference: {fileID: 0}
-    - target: {fileID: 9131592800494689833, guid: a67599942fcd14c52a30508ad7fa0b0c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1574,7 +1554,7 @@ MonoBehaviour:
   homeworkPrefab: {fileID: 1964718014450567911, guid: 089f2d5460658274a9f736cfcb7e65b2, type: 3}
   articlePrefab: {fileID: 1893165456955428578, guid: 6cbfad269d9bd47469053bf5403ba607, type: 3}
   riverPrefab: {fileID: 597623955351182255, guid: 5b3ab32b311c599459b402ae12c3db14, type: 3}
-  homeWorkSpawnPos: {fileID: 923194267}
+  homeWorkSpawnPos: {fileID: 285798055}
 --- !u!1 &2110297204
 GameObject:
   m_ObjectHideFlags: 0
