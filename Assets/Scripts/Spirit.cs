@@ -125,7 +125,7 @@ public class Spirit : MonoBehaviour
             GetRandomTarget();
         
             yield return MoveToTarget(targetBoundary.position);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         
             currentState = GhostState.CastingSpell;
         }
