@@ -7,7 +7,8 @@ namespace Homework
 {
     public class HwRiver : MonoBehaviour
     {
-        [SerializeField] private float moveDistance = 0.5f;
+        private readonly float moveDistance = 300f;
+
         private readonly float totalTime = 0.1f;
         private bool animationTime;
         private Image center;
@@ -21,6 +22,7 @@ namespace Homework
         private GameObject Keyboard;
         private GameObject leftArrow;
         private GameObject rightArrow;
+        private readonly float soCloseDistance = 40f;
         private float timer;
         private Vector3 to;
 
@@ -51,7 +53,6 @@ namespace Homework
             }
 
             var distance = Vector2.Distance(Keyboard.transform.position, transform.position);
-            var soCloseDistance = 30f;
             UpdateArrowAnimation();
             if (soCloseDistance > distance)
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -65,7 +66,7 @@ namespace Homework
                 if (timer < totalTime)
                 {
                     timer += Time.deltaTime;
-                    Keyboard.transform.position = Vector3.Lerp(from, to, timer / totalTime);
+                    hint.transform.position = Vector3.Lerp(from, to, timer / totalTime);
                     return;
                 }
 
@@ -74,13 +75,13 @@ namespace Homework
 
             if (Input.GetKey(KeyCode.A) && leftEnalbe)
             {
-                hint.transform.position += new Vector3(-moveDistance, 0, 0);
+                hint.transform.position += new Vector3(-moveDistance, 0, 0) * Time.deltaTime;
                 return;
             }
 
             if (Input.GetKey(KeyCode.L) && rightEnalbe)
             {
-                hint.transform.position += new Vector3(moveDistance, 0, 0);
+                hint.transform.position += new Vector3(moveDistance, 0, 0) * Time.deltaTime;
                 return;
             }
 
@@ -97,6 +98,7 @@ namespace Homework
         {
             var offset = Random.Range(0, 2) == 0 ? 1 : -1;
             var scale = 150f;
+            Debug.Log(transform.position - new Vector3(offset * scale, 0, 0));
             hint.transform.position = transform.position - new Vector3(offset * scale, 0, 0);
             timer = 0f;
             animationTime = false;
