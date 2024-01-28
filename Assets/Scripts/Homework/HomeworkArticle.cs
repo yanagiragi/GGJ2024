@@ -18,7 +18,7 @@ namespace DefaultNamespace
         private int wordColIndex;
         private int wordRowIndex;
 
-        [SerializeField] private GameObject cursor;
+        [SerializeField] private GameObject cursor, emptyCursor;
 
         private void Awake()
         {
@@ -69,9 +69,9 @@ namespace DefaultNamespace
                 PlayClickSE();
 
                 wordRowIndex++;
+                ShowCursor(false);
                 if (wordRowIndex >= nowArticle[wordColIndex].Length)
                 {
-                    cursor.SetActive(false);
                     wordColIndex++;
                     wordRowIndex = 0;
                     if (wordColIndex >= nowArticle.Count)
@@ -82,6 +82,7 @@ namespace DefaultNamespace
                     }
 
                     onWordDone?.Invoke();
+                    ShowCursor(true);
                 }
 
                 UpdateText();
@@ -109,7 +110,6 @@ namespace DefaultNamespace
             wordRowIndex = 0;
             wordColIndex = 0;
             UpdateText();
-            cursor.SetActive(true);
         }
 
         private void UpdateText()
@@ -128,7 +128,7 @@ namespace DefaultNamespace
 
             _text.text = result;
         }
-
+        
         public void SetOnWordDone(UnityAction action)
         {
             onWordDone += action;
@@ -142,6 +142,12 @@ namespace DefaultNamespace
         private bool IsAtRight(string key)
         {
             return key is "j" or "k" or "l" or "i" or "h" or "n" or "m" or "y" or " " or "p" or "o" or "u";
+        }
+
+        private void ShowCursor(bool show)
+        {
+            cursor.SetActive(show);
+            emptyCursor.SetActive(!show);
         }
 
         #region data
