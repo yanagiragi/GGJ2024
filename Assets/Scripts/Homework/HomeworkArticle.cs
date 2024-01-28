@@ -66,6 +66,17 @@ namespace DefaultNamespace
 
             if (getkey)
             {
+                if (IsAtRight(c))
+                {
+                    var player = GameManager.Instance.PlayerManager.GetPlayer(1);
+                    player.dialogUI.Show(c);
+                }
+                else
+                {
+                    var player = GameManager.Instance.PlayerManager.GetPlayer(0);
+                    player.dialogUI.Show(c);
+                }
+
                 PlayClickSE();
 
                 wordRowIndex++;
@@ -127,6 +138,7 @@ namespace DefaultNamespace
             // result += "\n";
 
             _text.text = result;
+
         }
 
         public void SetOnWordDone(UnityAction action)

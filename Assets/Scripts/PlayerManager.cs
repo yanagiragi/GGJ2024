@@ -19,6 +19,7 @@ namespace DefaultNamespace
         public PlayerPicture playerPicture;
         public Image chair;
         public Image image;
+        public DialogUI dialogUI;
 
         public bool IsSleep = false;
 
