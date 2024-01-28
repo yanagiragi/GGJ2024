@@ -45,7 +45,7 @@ namespace DefaultNamespace
             river = Instantiate(riverPrefab, transform).GetComponent<HwRiver>();
             river.SetOnDoneAction(RiverDone);
 
-            SwitchWorkType(WorkType.Command);
+            SwitchWorkType(WorkType.River);
         }
 
         private void Update()

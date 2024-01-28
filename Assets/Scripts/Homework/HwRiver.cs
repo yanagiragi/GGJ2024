@@ -1,32 +1,32 @@
 ﻿using DefaultNamespace.Homework;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Homework
 {
     public class HwRiver : MonoBehaviour
     {
         [SerializeField] private float moveDistance = 30f;
-        private float currTime;
+        private Image center;
+        private ArrowColor color;
         private UnityAction doneAction;
 
         private GameObject hint;
         private GameObject Keyboard;
         private GameObject leftArrow;
         private GameObject rightArrow;
-        private float timer;
 
 
         private void Awake()
         {
+            center = transform.Find("Center").GetComponent<Image>();
             leftArrow = transform.Find("hint/LeftArrow").gameObject;
             rightArrow = transform.Find("hint/RightArrow").gameObject;
             Keyboard = transform.Find("hint/Keyboard").gameObject;
             leftArrow.GetComponent<Arrow>().SetDirection(Direction.Left);
             rightArrow.GetComponent<Arrow>().SetDirection(Direction.Right);
             hint = transform.Find("hint").gameObject;
-            timer = 10.0f;
-            currTime = 0;
             Init();
         }
 
@@ -42,30 +42,21 @@ namespace Homework
             }
 
             var distance = Vector2.Distance(Keyboard.transform.position, transform.position);
-            var soCloseDistance = 50f;
+            var soCloseDistance = 30f;
             UpdateArrowAnimation();
             if (Input.GetKeyDown(KeyCode.A) && leftEnalbe)
                 hint.transform.position += new Vector3(-moveDistance, 0, 0);
             if (Input.GetKeyDown(KeyCode.L) && rightEnalbe)
                 hint.transform.position += new Vector3(moveDistance, 0, 0);
             if (soCloseDistance > distance)
-            {
-                currTime += Time.deltaTime;
-                if (currTime > timer)
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     Debug.Log("river done");
                     doneAction?.Invoke();
-                    currTime = 0;
                 }
-            }
-            else
-            {
-                currTime = 0;
-            }
 
             //small move keyboard
             var dir = (hint.transform.position - transform.position).normalized;
-            Debug.Log(distance < soCloseDistance * 1.2f);
             var moveScale = Time.deltaTime * 10.0f;
             var biggerScale = 4f;
             if (distance < soCloseDistance * biggerScale)
@@ -76,7 +67,6 @@ namespace Homework
         public void Init()
         {
             hint.transform.position = transform.position - new Vector3(1, 0, 0);
-            currTime = 0;
         }
 
         public void SetOnDoneAction(UnityAction action)
