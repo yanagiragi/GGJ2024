@@ -26,6 +26,8 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     [SerializeField] private int _slapChargeCount = 10;
     [SerializeField] private float _restoreSpeed = 1;
     [SerializeField] private float _pitchFactor;
+    [SerializeField] private RectTransform _targetReference;
+    [SerializeField] private bool useV2;
 
     [Header("Read Only")]
     [SerializeField] private float _chargeTimer = 0;
@@ -36,6 +38,9 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     public bool IsEnableInput => _isEnableInput;
 
     private Vector3 _originalPosition;
+    private Vector2 _originalPositionV2;
+    private Vector2 _chargeMoveDirectionV2 = new Vector3(1, 1, 0);
+    private RectTransform _rectTransform;
 
     #endregion
 
@@ -46,6 +51,11 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         _progressBar.SetValue(0);
 
         _image.sprite = _normalSprite;
+
+        _rectTransform = GetComponent<RectTransform>();
+
+        _originalPositionV2 = _rectTransform.anchoredPosition;
+        _chargeMoveDirectionV2 = (_targetReference.anchoredPosition - _rectTransform.anchoredPosition).normalized;
     }
 
     public void Update()
@@ -127,7 +137,14 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
         if (_chargeTarget > 0)
         {
-            transform.position = Vector3.Lerp(_originalPosition, _originalPosition + _chargeMoveDirection * _chargeMoveStrength * _chargeTarget, _chargeTimer / _chargeTarget);
+            if (useV2)
+            {
+                _rectTransform.anchoredPosition = Vector2.Lerp(_originalPositionV2, _originalPositionV2 + _chargeMoveDirectionV2 * _chargeMoveStrength * _chargeTarget, _chargeTimer / _chargeTarget);
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(_originalPosition, _originalPosition + _chargeMoveDirection * _chargeMoveStrength * _chargeTarget, _chargeTimer / _chargeTarget);
+            }
         }
     }
     #endregion
@@ -136,7 +153,14 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     private IEnumerator _slap(int playerIndex)
     {
         // for direct call from mobile
-        transform.position = _originalPosition + _chargeMoveDirection * _chargeMoveStrength * _slapChargeCount;
+        if (useV2)
+        {
+            _rectTransform.anchoredPosition = _originalPositionV2 + _chargeMoveDirectionV2 * _chargeMoveStrength * _slapChargeCount;
+        }
+        else
+        {
+            transform.position = _originalPosition + _chargeMoveDirection * _chargeMoveStrength * _slapChargeCount;
+        }
 
         var player = playerIndex < 0
             ? GameManager.Instance.PlayerManager.GetSleptPlayer()
@@ -148,12 +172,18 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
 
         this.Log("Slap!");
         _image.sprite = _SlapSprite;
-        player.Slap();
+        if (player != null)
+        {
+            player.Slap();
+        }
 
         OnSlapEvent?.Invoke();
         yield return new WaitForSeconds(1);
 
-        player.Normal();
+        if (player != null)
+        {
+            player.Normal();
+        }
         _resetAll();
     }
 
