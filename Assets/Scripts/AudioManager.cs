@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class AudioManager : MonoSingleton<AudioManager>, ILogger
     
     [SerializeField] private AudioSource backgroundMusic;
     [SerializeField] private AudioSource soundEffect;
-
+    [SerializeField] private AudioSource pitchSoundEffect;
     
     #region Play BGM
     
@@ -52,6 +53,17 @@ public class AudioManager : MonoSingleton<AudioManager>, ILogger
         PlaySE(ses[randomIndex]);
     }
 
+    [Button("播放音效")]
+    public void PlaySE(SE se, float pitch)
+    {
+        var audioClip = _musicData.seDict[se];
+
+        pitchSoundEffect.pitch = pitch;
+        pitchSoundEffect.clip = audioClip;
+        pitchSoundEffect.Play();
+        Logger.Log(this,$"播放 SE {se} 以 pitch {pitch}");
+    }
+    
     [Button("播放音效")]
     public void PlaySE(SE se)
     {
