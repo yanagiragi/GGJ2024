@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour, ILogger
 
     private void EnterResultScene()
     {
-        SceneManager.LoadScene("_Result");
+        SceneManager.LoadScene("Result");
     }
 
     #endregion

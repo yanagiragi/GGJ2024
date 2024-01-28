@@ -5,6 +5,6 @@ public class TitleManager : MonoBehaviour
 {
     public void GotoMainScene()
     {
-        SceneManager.LoadScene("_Scenes/_MainScene");
+        SceneManager.LoadScene("Main");
     }
 }
