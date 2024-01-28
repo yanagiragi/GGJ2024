@@ -7,7 +7,7 @@ namespace Homework
 {
     public class HwRiver : MonoBehaviour
     {
-        [SerializeField] private float moveDistance = 1f;
+        [SerializeField] private float moveDistance = 0.5f;
         private readonly float totalTime = 0.1f;
         private bool animationTime;
         private Image center;
@@ -51,7 +51,7 @@ namespace Homework
             }
 
             var distance = Vector2.Distance(Keyboard.transform.position, transform.position);
-            var soCloseDistance = 50f;
+            var soCloseDistance = 30f;
             UpdateArrowAnimation();
             if (soCloseDistance > distance)
                 if (Input.GetKeyDown(KeyCode.Space))
