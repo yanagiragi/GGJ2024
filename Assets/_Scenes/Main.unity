@@ -730,7 +730,7 @@ PrefabInstance:
       objectReference: {fileID: 7332779772177938104}
     - target: {fileID: 5281716446037076967, guid: 14c5f024c16e17c498f551add9afa76e, type: 3}
       propertyPath: _chargeMoveStrength
-      value: 54
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 5281716446037076967, guid: 14c5f024c16e17c498f551add9afa76e, type: 3}
       propertyPath: _chargeMoveDirection.x
@@ -1385,7 +1385,7 @@ PrefabInstance:
       objectReference: {fileID: 5053133109714961503}
     - target: {fileID: 5281716446037076967, guid: 14c5f024c16e17c498f551add9afa76e, type: 3}
       propertyPath: _chargeMoveStrength
-      value: 51
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5281716446037076967, guid: 14c5f024c16e17c498f551add9afa76e, type: 3}
       propertyPath: _chargeMoveDirection.x
