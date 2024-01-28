@@ -17,6 +17,7 @@ namespace DefaultNamespace.Homework
         [SerializeField] private ArrowColor color;
         private Image image;
 
+
         private void Awake()
         {
             image = GetComponent<Image>();
@@ -25,6 +26,8 @@ namespace DefaultNamespace.Homework
         [Button("Set dir")]
         public void SetDirection(Direction direction)
         {
+            if (image == null)
+                image = GetComponent<Image>();
             switch (direction)
             {
                 case Direction.Up:
@@ -36,6 +39,8 @@ namespace DefaultNamespace.Homework
                     transform.rotation = Quaternion.Euler(0, 0, 0);
                     break;
                 case Direction.Left:
+                    Debug.Log(image);
+                    Debug.Log(color);
                     image.color = color.leftColor;
                     transform.rotation = Quaternion.Euler(0, 0, -90);
                     break;

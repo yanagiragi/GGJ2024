@@ -56,13 +56,17 @@ namespace DefaultNamespace
                 getkey = Input.GetKeyDown(c);
             var atRight = IsAtRight(c);
             if (GameManager.Instance.PlayerManager.IsAnyPlayerSlept())
+            {
+                if (GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name != "Chair_Left" && atRight)
+                    return;
                 if (GameManager.Instance.PlayerManager.GetSleptPlayer().chair.sprite.name == "Chair_Left" && !atRight)
                     return;
+            }
+
             if (getkey)
             {
-                Debug.Log("getkey");
                 PlayClickSE();
-                
+
                 wordRowIndex++;
                 if (wordRowIndex >= nowArticle[wordColIndex].Length)
                 {
@@ -84,7 +88,7 @@ namespace DefaultNamespace
 
         private void PlayClickSE()
         {
-            AudioManager.Instance.PlayRandomSE(new SE[]
+            AudioManager.Instance.PlayRandomSE(new[]
             {
                 SE.Click1,
                 SE.Click2,
@@ -134,9 +138,7 @@ namespace DefaultNamespace
 
         private bool IsAtRight(string key)
         {
-            return key == "J" || key == "K" || key == "L" || key == "I"
-                   || key == "H" || key == "N" || key == "M" || key == "Y"
-                   || key == " " || key == "P" || key == "O" || key == "U";
+            return key is "j" or "k" or "l" or "i" or "h" or "n" or "m" or "y" or " " or "p" or "o" or "u";
         }
 
         #region data
