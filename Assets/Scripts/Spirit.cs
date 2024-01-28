@@ -161,11 +161,12 @@ public class Spirit : MonoBehaviour
     {
         _animator.SetBool(CastingSpell, true);
         
+        yield return new WaitForSeconds(castingSpellDuration);
+        
         GameManager.Instance.PlayerManager.Sleep(targetIndex);
         AudioManager.Instance.PlaySE(SE.ScaryLaugh);
         var targetHand = GameManager.Instance.HandManager.GetHand(targetIndex);
         targetHand.EnableInput();
-        yield return new WaitForSeconds(castingSpellDuration);
         
         currentState = GhostState.Idle;
     }

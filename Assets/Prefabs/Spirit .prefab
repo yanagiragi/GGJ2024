@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 574290037340607503}
   idleDuration: 10
-  castingSpellDuration: 3
+  castingSpellDuration: 2
   idleSpeed: 30
   speed: 100
   direction: 1
