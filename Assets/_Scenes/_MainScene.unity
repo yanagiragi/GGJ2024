@@ -575,9 +575,13 @@ PrefabInstance:
       propertyPath: playerTwo.transform
       value: 
       objectReference: {fileID: 114386690}
+    - target: {fileID: 5050471344441727505, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 5050471344441727505, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
     - target: {fileID: 5648375151578319406, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
       propertyPath: totalTime
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5747858231613375203, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
       propertyPath: m_Name
