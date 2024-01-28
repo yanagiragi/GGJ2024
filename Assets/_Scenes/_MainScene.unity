@@ -543,6 +543,14 @@ PrefabInstance:
       propertyPath: playerTwoHand
       value: 
       objectReference: {fileID: 1639757483}
+    - target: {fileID: 79912928422594644, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
+      propertyPath: playerTwoandInput
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 79912928422594644, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
+      propertyPath: playerOneHandInput
+      value: 304
+      objectReference: {fileID: 0}
     - target: {fileID: 3766350453503543586, guid: 2f8c9e87e6b6f3545b8c5d16dcab17bd, type: 3}
       propertyPath: playerOne.chair
       value: 
