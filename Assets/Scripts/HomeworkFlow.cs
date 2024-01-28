@@ -13,6 +13,7 @@ namespace DefaultNamespace
     {
         [SerializeField] private GameObject homeworkPrefab;
         [SerializeField] private GameObject articlePrefab;
+        [SerializeField] private Transform homeWorkSpawnPos;
         private HomeworkArticle article;
 
         private HomeworkCommandManager homeworkLeft;
@@ -25,7 +26,7 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            article = Instantiate(articlePrefab, transform).GetComponent<HomeworkArticle>();
+            article = Instantiate(articlePrefab, homeWorkSpawnPos).GetComponent<HomeworkArticle>();
             article.SetOnWorkDone(ArticleDone);
             article.SetOnWordDone(WordDone);
             homeworkLeft = Instantiate(homeworkPrefab, transform).GetComponent<HomeworkCommandManager>();
