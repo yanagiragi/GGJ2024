@@ -25,6 +25,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     [SerializeField] private float _chargeMoveStrength = 5;
     [SerializeField] private int _slapChargeCount = 10;
     [SerializeField] private float _restoreSpeed = 1;
+    [SerializeField] private float _pitchFactor;
 
     [Header("Read Only")]
     [SerializeField] private float _chargeTimer = 0;
@@ -107,7 +108,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
             _chargeTarget += 1;
             _chargeTimer = _chargeTarget;
             _progressBar.Plus(1.0f / _slapChargeCount);
-            AudioManager.Instance.PlaySE(SE.Spring);
+            AudioManager.Instance.PlaySE(SE.Spring, 1 + _chargeTimer * _pitchFactor);
         }
         else
         {
