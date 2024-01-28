@@ -2,13 +2,8 @@
 
 namespace DefaultNamespace
 {
-    public class QuitManeger : MonoBehaviour
+    public class QuitManager : MonoSingleton<QuitManager>
     {
-        private void Start()
-        {
-            DontDestroyOnLoad(this);
-        }
-
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))

@@ -1,11 +1,50 @@
 <html>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>The Slap - Mobile Client</title>
+    <style>
+        .btn {
+            background: #91dbed;
+            background-image: -webkit-linear-gradient(top, #91dbed, #2980b9);
+            background-image: -moz-linear-gradient(top, #91dbed, #2980b9);
+            background-image: -ms-linear-gradient(top, #91dbed, #2980b9);
+            background-image: -o-linear-gradient(top, #91dbed, #2980b9);
+            background-image: linear-gradient(to bottom, #91dbed, #2980b9);
+            -webkit-border-radius: 28;
+            -moz-border-radius: 28;
+            border-radius: 28px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 20px;
+            padding: 10px 20px 10px 20px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #fc3c99;
+            background-image: -webkit-linear-gradient(top, #fc3c99, #d93463);
+            background-image: -moz-linear-gradient(top, #fc3c99, #d93463);
+            background-image: -ms-linear-gradient(top, #fc3c99, #d93463);
+            background-image: -o-linear-gradient(top, #fc3c99, #d93463);
+            background-image: linear-gradient(to bottom, #fc3c99, #d93463);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
 <body>
     <div id="main">
-        <h1>Connection:</h1>
-        <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Connect To WS</a>
-        <h1>Messages From Server:</h1>
-        <div id="messages">
+        <div>
+            <h1>Connection:</h1>
+            <a id="start_player_one" class="btn btn-lg btn-success py-1" href="#" role="button">Connect as Player 1</a>
+            <a id="start_player_two" class="btn btn-lg btn-success py-1" href="#" role="button">Connect as Player 2</a>
+        </div>
+        <div>
+            <h1>Messages From Server:</h1>
+            <div id="messages">
+            </div>
         </div>
     </div>
     <div id="stats">
@@ -50,28 +89,28 @@
 <script>
 
     const accelerometerLimit = 10.0;
-    const wsClientId = navigator.userAgent
+    var wsClientId = ''
     var ws = null;
 
-    function handleOrientation (event) {
+    function handleOrientation(event) {
         updateFieldIfNotNull('Orientation_a', event.alpha);
         updateFieldIfNotNull('Orientation_b', event.beta);
         updateFieldIfNotNull('Orientation_g', event.gamma);
         incrementEventCount();
     }
 
-    function incrementEventCount () {
+    function incrementEventCount() {
         let counterElement = document.getElementById("num-observed-events")
         let eventCount = parseInt(counterElement.innerHTML)
         counterElement.innerHTML = eventCount + 1;
     }
 
-    function updateFieldIfNotNull (fieldName, value, precision = 10) {
+    function updateFieldIfNotNull(fieldName, value, precision = 10) {
         if (value != null)
             document.getElementById(fieldName).innerHTML = value.toFixed(precision);
     }
 
-    function handleMotion (event) {
+    function handleMotion(event) {
 
         const main = document.querySelector('#main')
         main.textContent
@@ -99,8 +138,7 @@
         }
     }
 
-    let demo_button = document.getElementById("start_demo");
-    demo_button.onclick = (e) => {
+    function start(event) {
         // Request permission for iOS 13+ devices
         if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function") {
             DeviceMotionEvent.requestPermission();
@@ -118,7 +156,23 @@
             main.innerHTML += `<div>${event.data.toString()}</div>`;
             console.log(event.data);
         };
-    };
+    }
+
+    let playerOneButton = document.getElementById("start_player_one");
+    playerOneButton.onclick = e => {
+        const main = document.querySelector('#messages')
+        main.innerHTML = ''
+        wsClientId = 'Player 1'
+        start()
+    }
+
+    let playerTwoButton = document.getElementById("start_player_two");
+    playerTwoButton.onclick = e => {
+        const main = document.querySelector('#messages')
+        main.innerHTML = ''
+        wsClientId = 'Player 2'
+        start()
+    }
 </script>
 
 </html>

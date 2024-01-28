@@ -68,10 +68,26 @@ namespace DefaultNamespace
             {
                 return playerOne;
             }
-            else
+            else if (playerTwo.IsSleep)
             {
                 return playerTwo;
             }
+
+            return null;
+        }
+
+        public PlayerSetting GetPlayer(int index)
+        {
+            if (index == 0)
+            {
+                return playerOne;
+            }
+            else if (index == 1)
+            {
+                return playerTwo;
+            }
+
+            return null;
         }
 
         public bool IsAnyPlayerSlept()

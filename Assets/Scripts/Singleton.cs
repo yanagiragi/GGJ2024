@@ -19,3 +19,23 @@ public class Singleton<T> where T : class, new()
         }
     }
 }
+
+public class MonoSingleton<T> : MonoBehaviour
+{
+    private static T _instance;
+
+    public static T Instance => _instance;
+
+    public void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = GetComponent<T>();
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+}

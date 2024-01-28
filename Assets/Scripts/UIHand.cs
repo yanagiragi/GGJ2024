@@ -63,7 +63,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     #region IHand
     public void EnableInput() => _isEnableInput = true;
 
-    public void Slap()
+    public void Slap(int playerIndex = -1)
     {
         if (_isSlapping)
         {
@@ -72,7 +72,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
         }
 
         _isEnableInput = false;
-        StartCoroutine(_slap());
+        StartCoroutine(_slap(playerIndex));
     }
 
     public void Resolve(bool isInputDown)
@@ -132,20 +132,27 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
     #endregion
 
     #region Private Methods
-    private IEnumerator _slap()
+    private IEnumerator _slap(int playerIndex)
     {
+        // for direct call from mobile
+        transform.position = _originalPosition + _chargeMoveDirection * _chargeMoveStrength * _slapChargeCount;
+
+        var player = playerIndex < 0
+            ? GameManager.Instance.PlayerManager.GetSleptPlayer()
+            : GameManager.Instance.PlayerManager.GetPlayer(playerIndex);
+
         _isSlapping = true;
         GameManager.Instance.AudioManager.PlaySE(SE.Slap);
         yield return new WaitForSeconds(0.5f);
 
         this.Log("Slap!");
         _image.sprite = _SlapSprite;
-        GameManager.Instance.PlayerManager.GetSleptPlayer().Slap();
+        player.Slap();
 
         OnSlapEvent?.Invoke();
         yield return new WaitForSeconds(1);
 
-        GameManager.Instance.PlayerManager.GetSleptPlayer().Normal();
+        player.Normal();
         _resetAll();
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHand
 {
-    public void Slap();
+    public void Slap(int playerIndex);
 
     public void Resolve(bool isInputDown);
 
