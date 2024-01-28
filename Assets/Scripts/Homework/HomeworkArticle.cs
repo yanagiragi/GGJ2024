@@ -72,7 +72,7 @@ namespace DefaultNamespace
                     {
                         NewArticle();
                         onDone?.Invoke();
-                        GameManager.Instance.AudioManager.PlaySE(SE.GetPoint);
+                        AudioManager.Instance.PlaySE(SE.GetPoint);
                     }
 
                     onWordDone?.Invoke();
@@ -84,7 +84,7 @@ namespace DefaultNamespace
 
         private void PlayClickSE()
         {
-            GameManager.Instance.AudioManager.PlayRandomSE(new SE[]
+            AudioManager.Instance.PlayRandomSE(new SE[]
             {
                 SE.Click1,
                 SE.Click2,

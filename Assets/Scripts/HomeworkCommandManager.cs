@@ -65,11 +65,11 @@ public class HomeworkCommandManager : MonoBehaviour, ILogger
                 if (commands.Count == 0)
                 {
                     onWorkDone?.Invoke();
-                    GameManager.Instance.AudioManager.PlaySE(SE.GetPoint);
+                    AudioManager.Instance.PlaySE(SE.GetPoint);
                 }
                 else
                 {
-                    GameManager.Instance.AudioManager.PlaySE(SE.Arrow);
+                    AudioManager.Instance.PlaySE(SE.Arrow);
                 }
                 
                 // AddCommands(4);

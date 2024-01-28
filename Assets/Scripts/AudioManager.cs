@@ -1,11 +1,12 @@
 
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class AudioManager : SerializedMonoBehaviour, ILogger
+public class AudioManager : MonoSingleton<AudioManager>, ILogger
 {
     public string Prefix => "<AudioManager>";
     
@@ -13,9 +14,9 @@ public class AudioManager : SerializedMonoBehaviour, ILogger
     [SerializeField] private MusicData _musicData;
     
     [SerializeField] private AudioSource backgroundMusic;
-    [SerializeField] private  AudioSource soundEffect;
+    [SerializeField] private AudioSource soundEffect;
 
-
+    
     #region Play BGM
     
     private void OnEnable()
@@ -44,6 +45,12 @@ public class AudioManager : SerializedMonoBehaviour, ILogger
     
 
     #endregion
+    
+    public void PlayRandomSE(SE[] ses)
+    {
+        int randomIndex = Random.Range(0, _musicData.gameBGMs.Length);
+        PlaySE(ses[randomIndex]);
+    }
 
     [Button("播放音效")]
     public void PlaySE(SE se)

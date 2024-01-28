@@ -111,7 +111,7 @@ public class Spirit : MonoBehaviour
 
     private IEnumerator MovingState()
     {
-        GameManager.Instance.AudioManager.PlaySE(SE.Ghost);
+        AudioManager.Instance.PlaySE(SE.Ghost);
         
         _animator.SetBool(CastingSpell, false);
 
@@ -162,7 +162,7 @@ public class Spirit : MonoBehaviour
         _animator.SetBool(CastingSpell, true);
         
         GameManager.Instance.PlayerManager.Sleep(targetIndex);
-        GameManager.Instance.AudioManager.PlaySE(SE.ScaryLaugh);
+        AudioManager.Instance.PlaySE(SE.ScaryLaugh);
         var targetHand = GameManager.Instance.HandManager.GetHand(targetIndex);
         targetHand.EnableInput();
         yield return new WaitForSeconds(castingSpellDuration);

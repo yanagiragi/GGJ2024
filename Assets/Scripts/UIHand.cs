@@ -107,7 +107,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
             _chargeTarget += 1;
             _chargeTimer = _chargeTarget;
             _progressBar.Plus(1.0f / _slapChargeCount);
-            GameManager.Instance.AudioManager.PlaySE(SE.Spring);
+            AudioManager.Instance.PlaySE(SE.Spring);
         }
         else
         {
@@ -142,7 +142,7 @@ public sealed class UIHand : MonoBehaviour, IHand, ILogger
             : GameManager.Instance.PlayerManager.GetPlayer(playerIndex);
 
         _isSlapping = true;
-        GameManager.Instance.AudioManager.PlaySE(SE.Slap);
+        AudioManager.Instance.PlaySE(SE.Slap);
         yield return new WaitForSeconds(0.5f);
 
         this.Log("Slap!");

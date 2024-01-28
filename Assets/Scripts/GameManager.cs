@@ -42,9 +42,7 @@ public class GameManager : MonoBehaviour, ILogger
     public PlayerManager PlayerManager;
     public HandManager HandManager;
     public ScoreManager ScoreManager => ScoreManager.Instance;
-
-    public AudioManager AudioManager;
-
+    
     #endregion
 
     #region Game Coroutine
