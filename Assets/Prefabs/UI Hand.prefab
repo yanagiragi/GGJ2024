@@ -97,6 +97,7 @@ MonoBehaviour:
   _chargeMoveStrength: 24
   _slapChargeCount: 15
   _restoreSpeed: 5
+  _pitchFactor: 0.06666667
   _chargeTimer: 0
   _chargeTarget: 0
   _isSlapping: 0
