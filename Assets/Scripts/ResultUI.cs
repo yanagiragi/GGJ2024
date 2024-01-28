@@ -22,10 +22,12 @@ public class ResultUI : MonoBehaviour
         if (ScoreManager.Instance.IsWin)
         {
             winPanel.SetActive(true);
+            losePanel.SetActive(false);
             _audioManager.PlaySE(SE.Win);
         }
         else
         {
+            winPanel.SetActive(false);
             losePanel.SetActive(true);
             _audioManager.PlaySE(SE.Lose);
         }
